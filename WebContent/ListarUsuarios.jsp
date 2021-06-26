@@ -1,19 +1,17 @@
+<jsp:include page="_base.jsp" />
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Listar Usuarios</title>
 </head>
-<body>
-Usuario:<br>
-<a href="ServletsInicio?Param=Inicio">Inicio</a>
-<a href="ServletsInicio?Param=previoInsert">Añadir Usuario</a>
-<a href="ServletsInicio?Param=Tranferir">Trasferir Dinero</a>
-<a href="ServletsInicio?Param=Mirar cuenta">Mirar cuenta</a>
-<a href="ServletsInicio?Param=Prestamo">Solicitar Prestamo</a>
-<a href="ServletsInicio?Param=Datos">Datos Personales</a><br>
+<main style="margin-left:20em;">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"></div>
+<h2>Listar Usuarios</h2>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"></div>
+	
 <table id="table_id" class="display">
 		<thead>
 			<tr>
@@ -29,5 +27,4 @@ Usuario:<br>
 		</tbody>
 	</table>
 
-</body>
-</html>
+</main>
