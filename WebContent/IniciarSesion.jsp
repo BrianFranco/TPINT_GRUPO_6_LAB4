@@ -33,7 +33,6 @@
 	                  <input type="submit" name="login" class="btn btn-black" value="Ingresar">
 	                  <a class="btn btn-primary" href="AñadirUsuario.jsp" role="button">Registrarse</a>
                   </div>
-                  <a href="#"><small><b>¿Olvido su contraseña?</b></small></a>	
                </form>
             </div>
          </div>
