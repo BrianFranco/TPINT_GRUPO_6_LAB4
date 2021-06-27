@@ -35,13 +35,13 @@
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
            <li class="nav-item">
-	           <a class="nav-link active" aria-current="page" href="ABMLCuentas.jsp">
+	           <a class="nav-link" aria-current="page" href="ABMLCuentas.jsp">
 	            <span data-feather="home"></span>
 	             ABML Cuentas
 	           </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="ABMLClientes.jsp">
+            <a class="nav-link" aria-current="page" href="ABMLClientes.jsp">
               <span data-feather="users"></span>
               ABML de Clientes
             </a>

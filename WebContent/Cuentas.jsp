@@ -19,7 +19,7 @@
       		<div class="col-auto">
 			    <select class="form-select" aria-label="Default select example" name="cuentaOrigen">
 				  		<option selected></option>
-				  		<option value="1">Cta:Nro. 0001 - Disponible: 0000$</option>
+				  		<option value="1">Cta:Nro. 0001 - Disponible: 14000$</option>
 						<option value="2">Cta:Nro. 0002 - Disponible: 0000$</option>
 						<option value="3">Cta:Nro. 0003 - Disponible: 0000$</option>
 				</select>
@@ -45,8 +45,8 @@
             <tr>
               <td>Caja de Ahorro</td>
               <td>$</td>
-              <td>999999999999</td>
-              <td>8354.64</td>
+              <td>0001</td>
+              <td>14000</td>
             </tr>
           </tbody>
         </table>
@@ -58,48 +58,38 @@
             <tr>
               <th scope="col">Fecha</th>
               <th scope="col">Tipo de Movimiento</th>
+              <th scope="col">Detalle</th>
               <th scope="col">Saldo</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>25/06/2021</td>
-              <td>Extraccion Cajero</td>
-              <td>-2000</td>
-            </tr>
-            <tr>
-              <td>24/06/2021</td>
-              <td>Deposito</td>
-              <td>+6000</td>
+              <td>Pago Prestasmo</td>
+              <td>Pago cuota de prestamo otorgado</td>
+              <td>-1000</td>
             </tr>
             <tr>
               <td>22/06/2021</td>
               <td>Transferencia</td>
+              <td>Transferencia a cuenta 0002</td>
               <td>-4000</td>
-            </tr>
-            <tr>
-              <td>19/06/2021</td>
-              <td>Extraccion Cajero</td>
-              <td>-4000</td>
-            </tr>
-            <tr>
-              <td>19/06/2021</td>
-              <td>Transferencia</td>
-              <td>-6000</td>
             </tr>
             <tr>
               <td>15/06/2021</td>
-              <td>Deposito</td>
+              <td>Alta Prestamo</td>
+              <td>Prestamo otorgado</td>
               <td>+9000</td>
             </tr>
             <tr>
               <td>14/06/2021</td>
-              <td>Deposito</td>
-              <td>+4000</td>
+              <td>Alta de cuenta</td>
+              <td>Nuevo Usuario</td>
+              <td>+10000</td>
             </tr>
           </tbody>
         </table>
-      <h4>Saldo actual: 8354.64</h4>  
+      <h4>Saldo actual: 14000</h4>  
       </div>
       </div>
 </main>
