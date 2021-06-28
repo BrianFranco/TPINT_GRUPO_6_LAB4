@@ -1,4 +1,4 @@
-package entidad;
+package Entidad;
 
 public class UsuarioAdm extends Usuario {
 private int rolUsu;

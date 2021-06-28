@@ -1,6 +1,9 @@
-package entidad;
+package Entidad;
+
+import org.apache.tomcat.util.buf.StringCache;
 
 public class Usuario {
+private String ID
 private String Nombre;
 private String Apellido;
 private int Dni;
@@ -12,6 +15,7 @@ private int año;
 //constructor
 public Usuario()
 {
+	this.ID = "00001"
 	this.Nombre="";
 	this.Apellido="";
 	this.Dni=0000000;
@@ -21,8 +25,9 @@ public Usuario()
 	this.mes=00;
 	this.año=00;
 }
-public Usuario(String Nombre,String Apellido, int Dni, String NomUsuario, String Contraseña, int dia, int mes, int año)
+public Usuario(String id, String Nombre,String Apellido, int Dni, String NomUsuario, String Contraseña, int dia, int mes, int año)
 {
+	this.ID = id;
 	this.Nombre=Nombre;
 	this.Apellido=Apellido;
 	this.Dni=Dni;
@@ -33,6 +38,9 @@ public Usuario(String Nombre,String Apellido, int Dni, String NomUsuario, String
 	this.año=año;
 }
 //gets y sets
+public String getID() {
+	return ID;
+}
 public String getNombre() {
 	return Nombre;
 }
@@ -83,7 +91,7 @@ public void setAño(int año) {
 }
 @Override
 public String toString() {
-	return "Usuario [Nombre=" + Nombre + ", Apellido=" + Apellido + ", Dni=" + Dni + ", NomUsuario=" + NomUsuario
+	return "Usuario [ID=" + ID + "Nombre=" + Nombre + ", Apellido=" + Apellido + ", Dni=" + Dni + ", NomUsuario=" + NomUsuario
 			+ ", Contraseña=" + Contraseña + ", dia=" + dia + ", mes=" + mes + ", año=" + año + "]";
 }
 public void setRolUsu(int parseInt) {
