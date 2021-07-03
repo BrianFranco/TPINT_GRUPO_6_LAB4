@@ -1,3 +1,4 @@
+<%@ page import="entidad.Usuario" %>
 <jsp:include page="_base.jsp" />
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -5,6 +6,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Datos Personales</title>
+<%
+	Usuario u = new Usuario();
+	if(session.getAttribute("Usuario") != null){
+		u = (Usuario) session.getAttribute("Usuario");
+	}
+%>
+
 </head>
 <main style="margin-left:20em;">
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"></div>
@@ -13,11 +21,11 @@
 		<form class="row g-3">
 		  <div class="col-md-3">
 		    <label for="nombre" class="form-label">Nombre</label>
-		    <input type="text" disabled="disabled"  class="form-control" id="nombre" value="Ignacio">
+		    <input type="text" disabled="disabled"  class="form-control" id="nombre" value=<%=u.getNombre() %>>
 		  </div>
 		  <div class="col-md-3">
 		    <label for="apellido" class="form-label">Apellido</label>
-		    <input type="text" disabled="disabled" class="form-control" id="apellido" value="Keegan">
+		    <input type="text" disabled="disabled" class="form-control" id="apellido" value=<%=u.getApellido() %>>
 		  </div>
 		  <div class="col-md-3">
 		    <label for="fechaNac" class="form-label">Fecha de nacimiento</label>
@@ -25,7 +33,7 @@
 		  </div>
 		  <div class="col-md-3">
 		    <label for="dni" class="form-label">DNI</label>
-		    <input type="text" class="form-control" id="dni" disabled="disabled" value="3324445">
+		    <input type="text" class="form-control" id="dni" disabled="disabled" value=<%=u.getDni() %>>
 		  </div>
 		  <div class="col-md-3">
 		    <label for="cuil" class="form-label">CUIL</label>
@@ -61,11 +69,11 @@
 		  </div>
 		  <div class="col-md-3">
 		    <label for="usuario" class="form-label">Nombre de Usuario</label>
-		    <input type="text" class="form-control" id="usuario" disabled="disabled" value="ikeegan">
+		    <input type="text" class="form-control" id="usuario" disabled="disabled" value=<%=u.getNomUsuario() %>>
 		  </div>
 		  <div class="col-md-3">
 		    <label for="password" class="form-label">Contraseña</label>
-		    <input type="password" disabled="disabled" class="form-control" id="password" value="1234151">
+		    <input type="password" disabled="disabled" class="form-control" id="password" value=<%= u.getContraseña() %>>
 		  </div>
 		  <hr>
 		</form>

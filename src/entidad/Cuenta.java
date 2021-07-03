@@ -1,4 +1,4 @@
-package Entidad;
+package entidad;
 
 import org.apache.tomcat.util.buf.StringCache;
 
@@ -16,11 +16,11 @@ public class Cuenta {
 	public void setIDCuenta(String iDCuenta) {
 		IDCuenta = iDCuenta;
 	}
-	public String getIDUsuario() {
-		return IDUsuario;
+	public int getIDUsuario() {
+		return Usuario.getID();
 	}
-	public void setIDUsuario(String iDUsuario) {
-		IDUsuario = iDUsuario;
+	public void setIDUsuario(int iDUsuario) {
+		Usuario.setID(iDUsuario);
 	}
 	public TipoCuenta getTipoCuenta() {
 		return TipoCuenta;

@@ -1,4 +1,4 @@
-package Entidad;
+package entidad;
 
 import org.apache.tomcat.util.buf.StringCache;
 

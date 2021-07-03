@@ -1,9 +1,9 @@
-package Entidad;
+package entidad;
 
 import org.apache.tomcat.util.buf.StringCache;
 
 public class Usuario {
-private String ID
+private int ID;
 private String Nombre;
 private String Apellido;
 private int Dni;
@@ -15,7 +15,7 @@ private int año;
 //constructor
 public Usuario()
 {
-	this.ID = "00001"
+	this.ID = 1;
 	this.Nombre="";
 	this.Apellido="";
 	this.Dni=0000000;
@@ -25,7 +25,7 @@ public Usuario()
 	this.mes=00;
 	this.año=00;
 }
-public Usuario(String id, String Nombre,String Apellido, int Dni, String NomUsuario, String Contraseña, int dia, int mes, int año)
+public Usuario(int id, String Nombre,String Apellido, int Dni, String NomUsuario, String Contraseña, int dia, int mes, int año)
 {
 	this.ID = id;
 	this.Nombre=Nombre;
@@ -38,8 +38,11 @@ public Usuario(String id, String Nombre,String Apellido, int Dni, String NomUsua
 	this.año=año;
 }
 //gets y sets
-public String getID() {
+public int getID() {
 	return ID;
+}
+public void setID(int ID) {
+	this.ID=ID;
 }
 public String getNombre() {
 	return Nombre;

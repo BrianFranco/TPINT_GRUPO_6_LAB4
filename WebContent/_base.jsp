@@ -1,3 +1,4 @@
+<%@ page import="entidad.Usuario" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE HTML>
@@ -9,6 +10,13 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <jsp:include page="/Css/Estilos_base.css"></jsp:include>
 
+<%
+	Usuario u = new Usuario();
+	if(session.getAttribute("Usuario") != null){
+		u = (Usuario) session.getAttribute("Usuario");
+	}
+%>
+
 </head>
 <body>
 	<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
@@ -19,7 +27,7 @@
 	    <div class="navbar-nav mr-auto ">
 	      <a class="nav-link px-3" >
 	      	<span data-feather="user-check"></span>
-	      	Nombre Usuario
+	      	<%= u.getNombre() %>
 	      </a> 
 	      <a class="nav-link px-3" href="#">
 	      	<span data-feather="user-x"></span>

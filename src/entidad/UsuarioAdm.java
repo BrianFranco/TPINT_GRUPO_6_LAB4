@@ -1,4 +1,4 @@
-package Entidad;
+package entidad;
 
 public class UsuarioAdm extends Usuario {
 private int rolUsu;
@@ -13,7 +13,7 @@ public void setRolUsu(int rolUsu) {
 
 public UsuarioAdm(String Nombre,String Apellido, int Dni, String NomUsuario, String Contraseña, int dia, int mes, int año,int rolUsu)
 {
-	super(Nombre,Apellido, Dni,NomUsuario,Contraseña,dia,mes,año);
+	//super(Nombre,Apellido, Dni,NomUsuario,Contraseña,dia,mes,año);
 	this.rolUsu=rolUsu;
 }
 

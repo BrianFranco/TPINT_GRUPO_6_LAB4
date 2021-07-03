@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <jsp:include page="/Css/EstilosIniciarSesion.css"></jsp:include>
 <title>Inicio de sesión</title>
@@ -20,22 +20,31 @@
       <div class="main">
          <div class="col-md-6 col-sm-12">
             <div class="login-form">
-               <form action="servletUsuario" method="get" >
+               <form action="ServletIniciarSesion" method="post" >
                   <div class="form-group">
                      <label>Usuario</label>
-                     <input type="text" class="form-control" >
+                     <input type="text" class="form-control" name="txtUsuario" >
                   </div>
                   <div class="form-group">
                      <label>Contraseña</label>
-                     <input type="password" class="form-control">
+                     <input type="password" class="form-control" name="txtContraseña">
                   </div>
                   <div style="margin-top:10px;">
-	                  <input type="submit" name="login" class="btn btn-black" value="Ingresar">
+	                  <input type="submit" name="inputIngresar" class="btn btn-black" value="Ingresar">
 	                  <a class="btn btn-primary" href="AñadirUsuario.jsp" role="button">Registrarse</a>
                   </div>
                </form>
             </div>
          </div>
+         <% if (request.getAttribute("errorCampoVacio") != null){
+        	 	
+        	 %>
+        	 	<label class="alert"> Error. Debe completar todos los campos. </label>
+        <%	 	
+         }	         
+         %>
+         
+         
       </div>
 	
 </body>
