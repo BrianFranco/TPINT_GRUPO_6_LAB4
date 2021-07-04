@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import entidad.Cuenta;
 import negocio.cuentaNeg;
 import negocioImpl.cuentaNegImpl;
-import presentacion.controller.RequestDispatcher;
+import javax.servlet.RequestDispatcher;
+//import presentacion.controller.RequestDispatcher;
 
 import java.text.SimpleDateFormat;  
 import java.util.Date;
@@ -52,7 +53,6 @@ public class servletCuenta extends HttpServlet {
 			x.setFecha(request.getParameter("fecha"));
 			
 			negCuenta.insertar(x);
-			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/ABMLCuentas.jsp");
 			dispatcher.forward(request, response);
 		}
