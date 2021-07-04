@@ -1,6 +1,5 @@
 package entidad;
 
-import org.apache.tomcat.util.buf.StringCache;
 
 public class Usuario {
 private int ID;

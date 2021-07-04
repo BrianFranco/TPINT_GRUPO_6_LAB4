@@ -11,10 +11,7 @@ import entidad.Cuenta;
 import negocio.cuentaNeg;
 import negocioImpl.cuentaNegImpl;
 import javax.servlet.RequestDispatcher;
-//import presentacion.controller.RequestDispatcher;
 
-import java.text.SimpleDateFormat;  
-import java.util.Date;
 
 
 /**
@@ -40,9 +37,6 @@ public class servletCuenta extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("btnGenerar")!=null) {
 			Cuenta x = new Cuenta();

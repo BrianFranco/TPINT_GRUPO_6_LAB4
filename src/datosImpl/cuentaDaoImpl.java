@@ -3,8 +3,6 @@ package datosImpl;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 
 import datos.cuentaDao;
@@ -14,7 +12,7 @@ public class cuentaDaoImpl implements cuentaDao{
 	
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user = "root";
-	private String pass = "dod3";
+	private String pass = "root";
 	private String dbName = "bdbanco";
 	
 	public cuentaDaoImpl()
