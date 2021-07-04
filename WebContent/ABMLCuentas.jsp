@@ -1,3 +1,5 @@
+<%@ page import="entidad.Cuenta" %>
+<%@ page import="java.util.ArrayList" %>
 <jsp:include page="_baseAdministrador.jsp"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -43,7 +45,7 @@
 	</div>	
       
       <div class="table-responsive">   
-       <form class="row mb-3">            		
+       <form class="row mb-3" method="post" action="servletCuenta" >            		
       		<div class="col-auto">
       			<label class="form-label" for="cuentaOrigen">Filtrar por tipo de cuenta: </label>
       		</div>
@@ -63,22 +65,44 @@
 				</div>	
 						
 			<div class="col-auto">
-				<input type="submit" name="btnFiltrar" class="btn btn-primary" value="Filtrar"/>
+				<input type="submit" name="btnListar" class="btn btn-primary" value="Listar Cuentas"/>
 			</div>
 					
       </form>  
       		
+        <% 
+        ArrayList<Cuenta> listaCuentas = null;
+        if(request.getAttribute("listaC")!=null) 
+        {
+        	listaCuentas = (ArrayList<Cuenta>) request.getAttribute("listaC");
+        }
+        	
+        %>
         
        <h4>Cuentas</h4>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th scope="col">Cliente</th>
-              <th scope="col">Cuenta</th>
-              <th scope="col">Tipo de Cuenta</th>
+              <th scope="col">Tipo Cuenta</th>
+              <th scope="col">Fecha Creacion</th>
+              <th scope="col">CBU</th>
               <th scope="col">Saldo</th>              
             </tr>
+            <% 
+            
+            for(Cuenta user : listaCuentas)
+            {
+            %>
+            	 <tr>
+              <td> <%=user.getTipoCuenta()%> </td>
+              <td> <%=user.getFecha() %> </td>
+              <td> <%=user.getCBU() %> </td>
+              <td> <%=user.getSaldo() %> </td>              
+            </tr>
+            <%}%>
+            
+            
           </thead>
           <tbody>
             <tr>

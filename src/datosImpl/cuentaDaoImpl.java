@@ -4,8 +4,11 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.jsp.tagext.TryCatchFinally;
 
 import datos.cuentaDao;
 import entidad.Cuenta;
@@ -55,9 +58,34 @@ public class cuentaDaoImpl implements cuentaDao{
 	}
 
 	@Override
-	public List<Cuenta> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Cuenta> obtenerTodos() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+		Connection conn = null;
+		try{
+			conn = DriverManager.getConnection(host + dbName, user, pass);
+			Statement st = conn.createStatement();
+			
+			ResultSet rs = st.executeQuery("SELECT cuentas.N_Cuenta, cuentas.F_Creacion, cuentas.CBU, cuentas.Saldo\r\n" + 
+					"FROM cuentas\r\n" + 
+					"INNER JOIN cuentasxclientes\r\n" + 
+					"ON cuentas.N_Cuenta = cuentasxclientes.N_Cuenta");
+			while(rs.next()) {
+				
+			}
+			conn.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+		}
+		return lista;
 	}
 
 	@Override

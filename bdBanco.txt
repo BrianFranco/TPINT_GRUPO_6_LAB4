@@ -1,0 +1,116 @@
+CREATE DATABASE `bdBANCO`;
+use bdBanco;
+
+CREATE TABLE `Roles`
+(
+`IdRol` int NOT NULL ,
+`Descripcion` varchar(45) NOT NULL,
+PRIMARY KEY (`IdRol`)
+);
+
+CREATE TABLE `Usuarios`
+(
+`IdUsuario` int NOT NULL AUTO_INCREMENT,
+`Dni` int NOT NULL ,
+`Cuil` varchar(20) ,
+`Genero` varchar(15) NULL,
+`Nacionalidad` varchar(45) NULL,
+`F_Nacimiento` date NOT NULL, /*AAAA-MM-DD*/
+`Direccion` varchar(45) NULL,
+`Localidad` varchar(45) NULL,
+`Provincia` varchar(45) NULL,
+`Telefono` varchar(45) NULL,
+`NombreUsuario` varchar(45) NOT NULL,
+`Nombre` varchar(45) NULL,
+`Apellido` varchar(45) NULL,
+`Email` varchar(75) NOT NULL,
+`Password` varchar(45) NOT NULL,
+`IdRol` int NOT NULL,
+`Activo` boolean NOT NULL ,
+PRIMARY KEY (`IdUsuario`),
+foreign key (`IdRol`) references roles(`IdRol`)
+);
+
+CREATE TABLE `TipoCuenta`
+(
+`IdTipoCuenta` int NOT NULL AUTO_INCREMENT,
+`Descripcion` varchar(45) NOT NULL,
+PRIMARY KEY (`IdTipoCuenta`)
+) ;
+CREATE TABLE `Cuentas`
+(
+`N_Cuenta` int NOT NULL AUTO_INCREMENT,
+`F_Creacion` varchar(10) NOT NULL,
+`CBU` varchar(45) NOT NULL ,
+`IdTipoCuenta` int NOT NULL ,
+`Saldo` float NOT NULL ,
+`Activo` boolean NOT NULL ,
+PRIMARY KEY (`N_Cuenta`),
+foreign key (`IdTipoCuenta`) references TipoCuenta(`IdTipoCuenta`)
+) ;
+
+CREATE TABLE `CuentasxClientes`
+(
+`N_Cuenta` int NOT NULL,
+`IdUsuario` int NOT NULL ,
+PRIMARY KEY (`N_Cuenta`,`IdUsuario`),
+foreign key (`IdUsuario`) references Usuarios(`IdUsuario`),
+foreign key (`N_Cuenta`) references Cuentas(`N_Cuenta`)
+) ;
+
+CREATE TABLE `Prestamos`
+(
+`IdPrestamos` int NOT NULL AUTO_INCREMENT,
+`IdCuenta` int NOT NULL ,
+`MontoSolicitado` float NOT NULL ,
+`MontoTotalPagar` float NOT NULL ,
+`Meses_Pre` int NOT NULL ,
+`Cuotas` int NOT NULL ,
+`FechaInicio` date NOT NULL,/*AAAA-MM-DD*/
+PRIMARY KEY (`IdPrestamos`),
+foreign key (`IdCuenta`) references Cuentas(`N_Cuenta`)
+) ;
+CREATE TABLE `TipoMovimiento`
+(
+`IdTipoMovimiento` int NOT NULL ,
+`Descripcion` varchar(45) NOT NULL,
+PRIMARY KEY (`IdTipoMovimiento`)
+);
+CREATE TABLE `Moviminetos`
+(
+`IdMovimientos` int NOT NULL AUTO_INCREMENT,
+`IdCuenta` int NOT NULL ,
+`Descripcion` varchar(45) NOT NULL,
+`IdTipoMovimiento` int NOT NULL ,
+`Saldo` float NOT NULL ,
+PRIMARY KEY (`IdMovimientos`),
+foreign key (`IdTipoMovimiento`) references TipoMovimiento(`IdTipoMovimiento`),
+foreign key (`IdCuenta`) references Cuentas(`N_Cuenta`)
+) ;
+CREATE TABLE `Trasferencias`
+(
+`IdTrasferencias` int NOT NULL AUTO_INCREMENT,
+`IdCuentaOrigen` int NOT NULL ,
+`IdCuentaDestino` int NOT NULL ,
+`Monto` float NOT NULL ,
+PRIMARY KEY (`IdTrasferencias`),
+foreign key (`IdCuentaOrigen`) references Cuentas(`N_Cuenta`),
+foreign key (`IdCuentaDestino`) references Cuentas(`N_Cuenta`)
+) ;
+
+ALTER TABLE usuarios ADD CONSTRAINT rol_id FOREIGN KEY (idRol) REFERENCES roles(idRol);
+
+INSERT INTO roles VALUES (1,'Usuario');
+INSERT INTO roles VALUES (2,'Administrador');
+
+INSERT INTO tipocuenta VALUES (1,'Cuenta Corriente');
+
+select * from tipocuenta
+
+--procedimientos almacenados 
+
+DELIMITER $$
+CREATE PROCEDURE SP_AgregarCuenta(f_creacion varchar(10),cbu varchar(45),idTipoCuenta int,saldo float,activo bool)
+BEGIN
+	INSERT INTO usuarios (F_Creacion,CBU,IdTipoCuenta,Saldo,Activo) VALUES (f_creacion,cbu,idTipoCuenta,saldo,activo);
+END$$

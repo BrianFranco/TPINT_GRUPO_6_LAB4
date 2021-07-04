@@ -7,13 +7,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import datos.cuentaDao;
+import datosImpl.cuentaDaoImpl;
 import entidad.Cuenta;
 import negocio.cuentaNeg;
 import negocioImpl.cuentaNegImpl;
 import javax.servlet.RequestDispatcher;
 //import presentacion.controller.RequestDispatcher;
 
-import java.text.SimpleDateFormat;  
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -55,6 +58,17 @@ public class servletCuenta extends HttpServlet {
 			negCuenta.insertar(x);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/ABMLCuentas.jsp");
 			dispatcher.forward(request, response);
+			
+			if(request.getParameter("btnListar")!=null) {
+			
+				cuentaDaoImpl cdao = new cuentaDaoImpl();
+				ArrayList<Cuenta> lista = cdao.obtenerTodos();
+				
+				request.setAttribute("listaC", lista);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("/ABMLCuentas.jsp");
+				rd.forward(request, response);
+			}
 		}
 	}
 
