@@ -16,19 +16,19 @@ public class UsuarioDaoImpl implements UsuarioDao{
 		try {
 			ResultSet rs = null;
 			rs = cn.query(
-					"Select * From Usuario"
+					"Select * From Usuarios"
 					+ " where NombreUsuario='"+usuario.getNomUsuario()+
 					"' AND Password= '"+ usuario.getContraseña() +"'");
 			
-			rs.next();
-			usu = new Usuario();
-			usu.setApellido(rs.getString("usuario.apellido"));
-			usu.setNombre(rs.getString("usuario.nombre"));
-			usu.setNomUsuario(rs.getString("usuario.nombreusuario"));
-			usu.setRolUsu(rs.getInt("usuario.idrol"));
-			usu.setContraseña(rs.getString("usuario.Password"));
-			usu.setDni(rs.getInt("usuario.Dni"));
-			
+			if(rs.next()) {
+				usu = new Usuario();
+				usu.setApellido(rs.getString("usuarios.apellido"));
+				usu.setNombre(rs.getString("usuarios.nombre"));
+				usu.setNomUsuario(rs.getString("usuarios.nombreusuario"));
+				usu.setRolUsu(rs.getInt("usuarios.idrol"));
+				usu.setContraseña(rs.getString("usuarios.Password"));
+				usu.setDni(rs.getInt("usuarios.Dni"));
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally{

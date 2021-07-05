@@ -103,41 +103,7 @@
             <%}%>
             
             
-          </thead>
-          <tbody>
-            <tr>
-              <td>000001</td>
-              <td>666666666666</td>
-              <td>Cuenta Corriente</td>
-              <td>15634</td>
-              <td><input type="submit" name="btnModificar" class="btn btn-info" value="Modificar"/></td>
-              <td><input type="submit" name="btnEliminar" class="btn btn-danger" value="Eliminar"/></td>
-            </tr>
-            <tr>
-              <td>000002</td>
-              <td>777777777777</td>
-              <td>Caja de Ahorro</td>
-              <td>-3500</td>
-              <td><input type="submit" name="btnModificar" class="btn btn-info" value="Modificar"/></td>
-              <td><input type="submit" name="btnEliminar" class="btn btn-danger" value="Eliminar"/></td>
-            </tr>
-            <tr>
-              <td>000003</td>
-              <td>888888888888</td>
-              <td>Cuenta Corriente</td>
-              <td>759000</td>              
-              <td><input type="submit" name="btnModificar" class="btn btn-info" value="Modificar"/></td>
-              <td><input type="submit" name="btnEliminar" class="btn btn-danger" value="Eliminar"/></td>
-            </tr>
-            <tr>
-              <td>000004</td>
-              <td>999999999999</td>
-              <td>Caja de Ahorro</td>
-              <td>24300</td>
-              <td><input type="submit" name="btnModificar" class="btn btn-info" value="Modificar"/></td>
-              <td><input type="submit" name="btnEliminar" class="btn btn-danger" value="Eliminar"/></td>
-            </tr>                                   
-          </tbody>
+          </thead>          
         </table>      
       </div>
       </div>

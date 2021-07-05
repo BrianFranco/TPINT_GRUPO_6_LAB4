@@ -39,10 +39,24 @@
          <% if (request.getAttribute("errorCampoVacio") != null){
         	 	
         	 %>
-        	 	<label class="alert"> Error. Debe completar todos los campos. </label>
+        	 	<div class="alert alert-danger" role="alert">
+  					Error. Debe completar todos los campos.
+				</div>
         <%	 	
          }	         
          %>
+         
+         <% if (request.getAttribute("errorUsuarioIncorrecto") != null){
+        	 	
+        	 %>
+        	 	<div class="alert alert-danger" role="alert">
+  					Error. El usuario o contraseña ingresado es incorrecto.
+				</div>
+        <%	 	
+         }	         
+         %>
+         
+         
          
          
       </div>

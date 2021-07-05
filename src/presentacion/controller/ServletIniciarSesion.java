@@ -43,7 +43,7 @@ public class ServletIniciarSesion extends HttpServlet {
 		if(request.getParameter("inputIngresar") != null) {
 			
 				String redireccion = "";
-			if(request.getParameter("txtUsuario") != null && request.getParameter("txtContraseña")!=null) {
+			if(request.getParameter("txtUsuario") != "" && request.getParameter("txtContraseña")!= "") {
 				Usuario u = new Usuario();
 				u.setNomUsuario(request.getParameter("txtUsuario"));
 				u.setContraseña(request.getParameter("txtContraseña"));
@@ -53,9 +53,14 @@ public class ServletIniciarSesion extends HttpServlet {
 				usuarioBuscado = negUsuario.buscarUsuario(u);
 				if(usuarioBuscado != null) {
 					request.getSession().setAttribute("Usuario",usuarioBuscado );
+					redireccion = "/DatosPersonales.jsp";
+				}else {
+					boolean error=true;
+					request.setAttribute("errorUsuarioIncorrecto",error);
+					redireccion = "/IniciarSesion.jsp";
 				}
 				
-				redireccion = "/DatosPersonales.jsp";
+				
 			}else {
 				boolean error=true;
 				request.setAttribute("errorCampoVacio",error);
