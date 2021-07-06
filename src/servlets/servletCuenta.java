@@ -47,11 +47,12 @@ public class servletCuenta extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("btnGenerar")!=null) {
 			Cuenta x = new Cuenta();
-			x.setCBU(request.getParameter("nroCBU"));
-			x.setTipoCuenta(request.getParameter("comboCuenta"));
+			x.setCBU(request.getParameter("nroCBU").toString());
+			x.setIdUsuario(request.getParameter("idUsuario").toString());
+			x.setTipoCuenta(request.getParameter("comboCuenta").toString());
+			x.setSaldo("10000");
+			x.setFecha(today.toString());
 			x.setActivo(true);
-			x.setSaldo(request.getParameter("saldo"));
-			x.setFecha(request.getParameter("fecha"));
 			
 			negCuenta.insertar(x);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/ABMLCuentas.jsp");
