@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +28,8 @@ import java.util.Date;
 @WebServlet("/servletCuenta")
 public class servletCuenta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	cuentaNeg negCuenta = new cuentaNegImpl();   
+	cuentaNeg negCuenta = new cuentaNegImpl();
+	LocalDate today = LocalDate.now();
     /**
      * @see HttpServlet#HttpServlet()
      */
