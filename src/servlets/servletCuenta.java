@@ -57,17 +57,17 @@ public class servletCuenta extends HttpServlet {
 			negCuenta.insertar(x);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/ABMLCuentas.jsp");
 			dispatcher.forward(request, response);
+		}
 			
-			if(request.getParameter("btnListar")!=null) {
-			
-				cuentaDaoImpl cdao = new cuentaDaoImpl();
-				ArrayList<Cuenta> lista = cdao.obtenerTodos();
-				
-				request.setAttribute("listaC", lista);
-				
-				RequestDispatcher rd = request.getRequestDispatcher("/ABMLCuentas.jsp");
-				rd.forward(request, response);
-			}
+		if(request.getParameter("btnListar")!=null) {
+
+			cuentaDaoImpl cdao = new cuentaDaoImpl();
+			ArrayList<Cuenta> lista = cdao.obtenerTodos();
+
+			request.setAttribute("listaC", lista);
+
+			RequestDispatcher rd = request.getRequestDispatcher("/ABMLCuentas.jsp");
+			rd.forward(request, response);
 		}
 	}
 
