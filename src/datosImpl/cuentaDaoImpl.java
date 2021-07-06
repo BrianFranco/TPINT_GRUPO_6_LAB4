@@ -3,15 +3,7 @@ package datosImpl;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
-
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-
-
 import java.util.List;
-
-import javax.servlet.jsp.tagext.TryCatchFinally;
 
 import datos.cuentaDao;
 import entidad.Cuenta;
@@ -43,14 +35,14 @@ public class cuentaDaoImpl implements cuentaDao{
 		try
 		{
 			cn = DriverManager.getConnection(host+dbName, user,pass);
-			CallableStatement proc = cn.prepareCall("CALL SP_AgregarCuenta(?,?,?,?,?)");
+			CallableStatement proc = cn.prepareCall("CALL SP_AgregarCuenta(?,?,?,?,?,?)");
 			proc.setString(1, cuenta.getFecha());
-			proc.setString(2, cuenta.getCBU());
-			proc.setInt(3, Integer.parseInt(cuenta.getTipoCuenta()));
-			proc.setFloat(4, Float.parseFloat(cuenta.getSaldo()));
-			proc.setBoolean(5, cuenta.isActivo());
+			proc.setInt(2,Integer.parseInt(cuenta.getIdUsuario()));
+			proc.setString(3, cuenta.getCBU());
+			proc.setInt(4, Integer.parseInt(cuenta.getTipoCuenta()));
+			proc.setFloat(5, Float.parseFloat(cuenta.getSaldo()));
+			proc.setBoolean(6, cuenta.isActivo());
             proc.execute();  
-            
 		}
 		catch(Exception e)
 		{
@@ -61,34 +53,9 @@ public class cuentaDaoImpl implements cuentaDao{
 	}
 
 	@Override
-	public ArrayList<Cuenta> obtenerTodos() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
-		Connection conn = null;
-		try{
-			conn = DriverManager.getConnection(host + dbName, user, pass);
-			Statement st = conn.createStatement();
-			
-			ResultSet rs = st.executeQuery("SELECT cuentas.N_Cuenta, cuentas.F_Creacion, cuentas.CBU, cuentas.Saldo\r\n" + 
-					"FROM cuentas\r\n" + 
-					"INNER JOIN cuentasxclientes\r\n" + 
-					"ON cuentas.N_Cuenta = cuentasxclientes.N_Cuenta");
-			while(rs.next()) {
-				
-			}
-			conn.close();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-		}
-		return lista;
+	public List<Cuenta> obtenerTodos() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
