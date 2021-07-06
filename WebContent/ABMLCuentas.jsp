@@ -17,6 +17,10 @@
 	</div>		
 	<form class="row mb-3 mx-1" action="servletCuenta" method="post">
 		<div class="col input-group mb-3">
+			<span class="input-group-text" id="basic-addon1">Id Usuario</span>
+			<input type="text" class="form-control" name="idUsuario" placeholder="Id Usuario">
+		</div>
+		<div class="col input-group mb-3">
 			<span class="input-group-text" id="basic-addon1">CBU</span>
 			<input type="text" class="form-control" name="nroCBU" placeholder="CBU">
 		</div>
@@ -27,6 +31,7 @@
 				<option value="2">Caja de ahorro</option>
 			</select>
 		</div>
+		<div class="row"></div>
 		<div class="col input-group mb-3">
 			<span class="input-group-text" id="basic-addon1">Saldo</span>
 			<input type="text" class="form-control" disabled="disabled" name="saldo" value="10000">
