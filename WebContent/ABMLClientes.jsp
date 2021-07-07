@@ -1,4 +1,5 @@
-
+<%@page import="entidad.Usuario"%>
+<%@page import="java.util.ArrayList"%>
 <jsp:include page="_baseAdministrador.jsp"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -25,41 +26,106 @@ th {
 }
 </style>
 </head>
-<div style="height: 5px; margin-left:20em;aling:center;">
+<div style="margin-left:20em">
 	<span>
 		<h3>Registrar cliente</h3>
-		<form>
-		  <div class="col-md-6">
-		    <label for="usuario" class="form-label">Usuario</label>
-		    <input type="text" class="form-control" id="nombre">
+	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">	
+		<form method="post" action="ABMLClientes" class="row g-3">
+		  <div class="col-md-3">
+		    <label for="nombre" class="form-label">Nombre</label>
+		    <input name="txtNombre" type="text" class="form-control" id="nombre" value="">
 		  </div>
-		  <div class="col-md-6">
-			    <label for="password" class="form-label">Contrase√±a</label>
-			    <input type="text" class="form-control" id="apellido">
+		  <div class="col-md-3">
+		    <label for="apellido" class="form-label">Apellido</label>
+		    <input name="txtApellido" type="text"  class="form-control" id="apellido" value="">
 		  </div>
-		  <input type="submit" name="btnRegistrar" value="Registrar" style="margin-top:1em;" class="btn btn-primary">		 
+		  <div class="col-md-3">
+		    <label for="fechaNac" class="form-label">Fecha de nacimiento</label>
+		    <input name="txtFechaNac" type="text" class="form-control" id="fechaNac" value="">
+		  </div>
+		  <div class="col-md-3">
+		    <label for="dni" class="form-label">DNI</label>
+		    <input name="txtDni" type="text" class="form-control" id="dni" value="">
+		  </div>
+		  <div class="col-md-3">
+		    <label for="cuil" class="form-label">CUIL</label>
+		    <input name="txtCuil" type="text" class="form-control" id="cuil" value="">
+		  </div>
+		  <div class="col-md-3">
+		    <label for="genero" class="form-label">Genero</label>
+		    <input name="txtGenero" type="text" class="form-control" id="genero" value="">
+		  </div>
+		  <div class="col-md-3">
+		    <label for="nacionalidad" class="form-label">Nacionalidad</label>
+		    <input name="txtNacionalidad" type="text" class="form-control" id="nacionalidad" value="">
+		  </div>
+		  <div class="col-md-3">
+		    <label for="direccion" class="form-label">Direccion</label>
+		    <input name="txtDireccion" type="text" class="form-control" id="direccion" value="">
+		  </div>
+		  <div class="col-md-3">
+		    <label for="localidad" class="form-label">Localidad</label>
+		    <input name="txtLocalidad" type="text" class="form-control" id="localidad" value="">
+		  </div>
+		  <div class="col-md-3">
+		    <label for="provincia" class="form-label">Provincia</label>
+		    <input name="txtProvincia" type="text" class="form-control" id="provincia" value="">
+		  </div>
+		  <div class="col-md-3">
+		    <label for="correo" class="form-label">Correo</label>
+		    <input name="txtEmail" type="text" class="form-control" id="correo" value="">
+		  </div>
+		  <div class="col-md-3">
+		    <label for="telefono" class="form-label">Telefono</label>
+		    <input name="txtTelefono" type="text" class="form-control" id="telefono" value="">
+		  </div>
+		  <div class="col-md-3">
+		    <label for="usuario" class="form-label">Nombre de Usuario</label>
+		    <input name="txtNombreUsuario" type="text" class="form-control" id="usuario" value="">
+		  </div>
+		  <div class="col-md-3">
+		    <label for="password" class="form-label">ContraseÒa</label>
+		    <input name="txtPassword" type="password"  class="form-control" id="password" value="">
+		  </div>
+		  <hr>
+		  <div>
+		  	<input type="submit" name="btnRegistrar" value="Registrar" style="margin-top:1em;" class="btn btn-primary">
+		  </div>	
+		</form>	 
+		</div>
 </div>
-<div style="margin-left:20em;margin-top:17em;">
+<div style="margin-left:20em;margin-top:2em;">
 	<h3>Clientes</h3>
-	<form>
-		<table border="1">
-			<tr>
-				<th></th>
-				<th style="padding-left:10px; padding-right:10px;">Id</th>
-				<th style="padding-left:10px; padding-right:10px;">Contrase√±a</th>
-			</tr>
-			<tr>
-				<td><input type="radio" name="group"></td>
-				<td>666</td>
-				<td>ejemplo</td>
-			</tr>
-			<tr>
-				<td><input type="radio" name="group"></td>
-				<td>333</td>
-				<td>ejemplo2</td>
-			</tr>
-		</table>
-		<input type="submit" value="Modificar" style="margin-top:1em;" class="btn btn-danger">
-		<input type="submit" value="Eliminar" style="margin-top:1em;" class="btn btn-primary">
-	</form>
+	<a class="btn btn-primary" href="ABMLClientes?Param=list">Mostrar Usuarios</a>
+	<% 
+	ArrayList<Usuario> listaUsuarios = null;
+	if(request.getAttribute("listaU")!=null)
+	{
+		listaUsuarios = (ArrayList<Usuario>) request.getAttribute("listaU");
+	}
+	
+	 %>
+	 <hr>
+	<table border="1" class="display">
+		<tr> <th>ID</th>  <th>Nombre</th>  <th>Apellido</th>  <th></th> <th></th> </tr>
+		
+		<% 			
+		if(listaUsuarios!=null)
+			for(Usuario user : listaUsuarios) 
+			{
+			if(user.getActivo() == 1) {
+		%>
+		<tr>  
+			<form name="formulario" action="ABMLClientes?idUsuario=<%=user.getIdUsuario()%>" method="get">
+				<td><%=user.getIdUsuario() %>    <input type="hidden" name="idUsuario" value="<%=user.getIdUsuario()%>"> </td> 
+				<td><%=user.getNombre() %></td>   
+				<td><%=user.getApellido() %></td>
+				<td> <input type="submit" class="btn btn-danger" name="btnEliminar" value="Eliminar"> </td>  
+				<td> <input type="submit" class="btn btn-info" name="btnModificar" value="Modificar ContraseÒa"> </td>  
+			</form> 
+		</tr>
+		<%  } %>
+		<%  } %>
+	</table>
+
 </div>

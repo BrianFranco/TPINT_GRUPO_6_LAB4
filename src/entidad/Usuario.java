@@ -1,48 +1,157 @@
 package entidad;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.apache.tomcat.util.buf.StringCache;
 
 public class Usuario {
-private int ID;
+private int IdUsuario;
 private String Nombre;
 private String Apellido;
 private int Dni;
+private String Cuil;
+private Date fechaNac;
+private String Genero;
+private String Nacionalidad;
 private String NomUsuario;
 private String Contraseña;
-private int dia;
-private int mes;
-private int año;
+private String Direccion;
+private String Localidad;
+private String Provincia;
+private String Telefono;
+private String Email;
+private int Activo;
+
 //constructor
 public Usuario()
 {
-	this.ID = 1;
-	this.Nombre="";
-	this.Apellido="";
-	this.Dni=0000000;
+	this.Nombre="nuevoNombre";
+	this.Apellido="nuevoApellido";
+	this.Dni=0;
+	this.Cuil ="2000";
 	this.NomUsuario="";
 	this.Contraseña="";
-	this.dia=00;
-	this.mes=00;
-	this.año=00;
+	this.Direccion = "";
+	this.Localidad = "";
+	this.Provincia = "";
+	this.Telefono = "";
+	this.Email = "email@gmail.com";
+	DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+	String dateInString = "01/01/1980";
+	try {
+		this.fechaNac = formatter.parse(dateInString);
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	this.Genero = "O";
+	this.Nacionalidad = "Argentino";
 }
-public Usuario(int id, String Nombre,String Apellido, int Dni, String NomUsuario, String Contraseña, int dia, int mes, int año)
+
+public Usuario(String Nombre,String Apellido, int Dni, String cuil,String NomUsuario, Date fechaNac,
+			String genero,String nacionalidad,String Contraseña,
+			String Direccion,String Localidad,String Provincia,String Telefono,String Email)
 {
-	this.ID = id;
 	this.Nombre=Nombre;
 	this.Apellido=Apellido;
 	this.Dni=Dni;
+	this.Cuil = cuil;
 	this.NomUsuario=NomUsuario;
 	this.Contraseña=Contraseña;
-	this.dia=dia;
-	this.mes=mes;
-	this.año=año;
+	this.fechaNac = fechaNac;
+	this.Genero = genero;
+	this.Nacionalidad = nacionalidad;
+	this.Direccion = Direccion;
+	this.Localidad = Localidad;
+	this.Provincia = Provincia;
+	this.Telefono = Telefono;
+	this.Email = Email;
+	this.Activo = 1;
+}
+
+public int getActivo() {
+	return Activo;
+}
+public void setActivo(int activo) {
+	Activo = activo;
+}
+public String getFechaNac() {
+	DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+	
+	return formatter.format(this.fechaNac);
+}
+public void setFechaNac(String fechaNac) {
+	DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+	String dateInString = fechaNac;
+	try {
+		this.fechaNac = formatter.parse(dateInString);
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+public String getDireccion() {
+	return Direccion;
+}
+public void setDireccion(String direccion) {
+	Direccion = direccion;
+}
+public String getLocalidad() {
+	return Localidad;
+}
+public void setLocalidad(String localidad) {
+	Localidad = localidad;
+}
+public String getTelefono() {
+	return Telefono;
+}
+public void setTelefono(String telefono) {
+	Telefono = telefono;
+}
+public String getEmail() {
+	return Email;
+}
+public void setEmail(String email) {
+	Email = email;
+}
+
+public String getCuil() {
+	return Cuil;
+}
+public void setCuil(String cuil) {
+	Cuil = cuil;
+}
+public String getGenero() {
+	return Genero;
+}
+public void setGenero(String genero) {
+	Genero = genero;
+}
+public String getNacionalidad() {
+	return Nacionalidad;
+}
+public void setNacionalidad(String nacionalidad) {
+	Nacionalidad = nacionalidad;
+}
+
+
+
+public int getIdUsuario() {
+	return IdUsuario;
+}
+public void setIdUsuario(int idUsuario) {
+	IdUsuario = idUsuario;
+}
+public String getProvincia() {
+	return Provincia;
+}
+public void setProvincia(String provincia) {
+	Provincia = provincia;
 }
 //gets y sets
-public int getID() {
-	return ID;
-}
-public void setID(int ID) {
-	this.ID=ID;
-}
 public String getNombre() {
 	return Nombre;
 }
@@ -73,28 +182,11 @@ public String getContraseña() {
 public void setContraseña(String contraseña) {
 	Contraseña = contraseña;
 }
-public int getDia() {
-	return dia;
-}
-public void setDia(int dia) {
-	this.dia = dia;
-}
-public int getMes() {
-	return mes;
-}
-public void setMes(int mes) {
-	this.mes = mes;
-}
-public int getAño() {
-	return año;
-}
-public void setAño(int año) {
-	this.año = año;
-}
+
 @Override
 public String toString() {
-	return "Usuario [ID=" + ID + "Nombre=" + Nombre + ", Apellido=" + Apellido + ", Dni=" + Dni + ", NomUsuario=" + NomUsuario
-			+ ", Contraseña=" + Contraseña + ", dia=" + dia + ", mes=" + mes + ", año=" + año + "]";
+	return "Usuario [Nombre=" + Nombre + ", Apellido=" + Apellido + ", Dni=" + Dni + ", NomUsuario=" + NomUsuario
+			+ ", Contraseña=" + Contraseña + " ]";
 }
 public void setRolUsu(int parseInt) {
 	// TODO Auto-generated method stub

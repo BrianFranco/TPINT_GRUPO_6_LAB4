@@ -84,29 +84,32 @@
         	
         %>
         
+        
+        
        <h4>Cuentas</h4>
       <div class="table-responsive">
-        <table class="table table-striped table-sm">
+        <table class="table table-striped table-sm">                        
           <thead>
             <tr>
               <th scope="col">Tipo Cuenta</th>
               <th scope="col">Fecha Creacion</th>
               <th scope="col">CBU</th>
               <th scope="col">Saldo</th>              
-            </tr>
+            </tr>                    
+            
             <% 
             
             for(Cuenta user : listaCuentas)
             {
             %>
             	 <tr>
+              <td> <%=user.getIdUsuario()%> </td>
               <td> <%=user.getTipoCuenta()%> </td>
               <td> <%=user.getFecha() %> </td>
               <td> <%=user.getCBU() %> </td>
               <td> <%=user.getSaldo() %> </td>              
             </tr>
             <%}%>
-            
             
           </thead>          
         </table>      

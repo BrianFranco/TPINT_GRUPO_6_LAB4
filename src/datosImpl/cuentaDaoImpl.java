@@ -3,6 +3,7 @@ package datosImpl;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 import java.util.List;
 
 import datos.cuentaDao;
@@ -12,7 +13,7 @@ public class cuentaDaoImpl implements cuentaDao{
 	
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user = "root";
-	private String pass = "root";
+	private String pass = "ROOT";
 	private String dbName = "bdbanco";
 	
 	public cuentaDaoImpl()
@@ -53,7 +54,7 @@ public class cuentaDaoImpl implements cuentaDao{
 	}
 
 	@Override
-	public List<Cuenta> obtenerTodos() {
+	public ArrayList<Cuenta> obtenerTodos() {
 		// TODO Auto-generated method stub
 		return null;
 	}
