@@ -42,7 +42,7 @@ public class cuentaDaoImpl implements cuentaDao{
 			proc.setString(3, cuenta.getCBU());
 			proc.setInt(4, Integer.parseInt(cuenta.getTipoCuenta()));
 			proc.setFloat(5, Float.parseFloat(cuenta.getSaldo()));
-			proc.setBoolean(6, cuenta.isActivo());
+			proc.setInt(6, cuenta.getActivo());
             proc.execute();  
 		}
 		catch(Exception e)

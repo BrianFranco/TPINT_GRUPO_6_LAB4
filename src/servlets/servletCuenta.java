@@ -54,7 +54,7 @@ public class servletCuenta extends HttpServlet {
 			x.setTipoCuenta(request.getParameter("comboCuenta").toString());
 			x.setSaldo("10000");
 			x.setFecha(today.toString());
-			x.setActivo(true);
+			x.setActivo(1);
 			
 			negCuenta.insertar(x);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/ABMLCuentas.jsp");

@@ -2,34 +2,46 @@ package entidad;
 
 
 public class Cuenta {
+	private String N_Cuenta;
 	private String CBU;
 	private String idUsuario;
 	private String TipoCuenta;
 	private String Fecha;
 	private String saldo;
-	private boolean activo;
+	private int activo;
 	
 	public Cuenta() {
 		super();
+		N_Cuenta="";
 		CBU = "";
 		idUsuario = "";
 		Fecha="";
 		TipoCuenta = "";
 		this.saldo = "10000";
-		this.activo = true;
+		this.activo = 1;
 	}
 	
 
-	public Cuenta(String cBU,String idusuario , String tipoCuenta, String fecha, String saldo, boolean activo) {
+	public Cuenta(String N_Cuenta, String cBU,String idusuario , String tipoCuenta, String fecha, String saldo, boolean activo) {
 		super();
 		CBU = cBU;
 		idUsuario = idusuario;
 		TipoCuenta = tipoCuenta;
 		Fecha=fecha;
 		this.saldo = saldo;
-		this.activo = activo;
+		this.activo = 1;
 	}
 	
+	public String getN_Cuenta() {
+		return N_Cuenta;
+	}
+
+
+	public void setN_Cuenta(String n_Cuenta) {
+		N_Cuenta = n_Cuenta;
+	}
+
+
 	public String getIdUsuario() {
 		return idUsuario;
 	}
@@ -65,10 +77,10 @@ public class Cuenta {
 	public void setSaldo(String i) {
 		this.saldo = i;
 	}
-	public boolean isActivo() {
+	public int getActivo() {
 		return activo;
 	}
-	public void setActivo(boolean activo) {
+	public void setActivo(int activo) {
 		this.activo = activo;
 	}
 }

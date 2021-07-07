@@ -62,57 +62,48 @@
 				</select>
 			</div>	
 			<div class="col-auto">
-      			<label class="form-label" for="cuentaOrigen">Filtrar por Cliente Número: </label>
+      			<label class="form-label" for="cuentaOrigen">Filtrar por Cliente Numero: </label>
       		</div>
       	
 			    <div class="col-auto">
 			    	<input type="text" class="form-control" id="cliente">			    	
 				</div>	
 						
-			<div class="col-auto">
-				<input type="submit" name="btnListar" class="btn btn-primary" value="Listar Cuentas"/>
-			</div>
-					
-      </form>  
-      		
-        <% 
-        ArrayList<Cuenta> listaCuentas = null;
-        if(request.getAttribute("listaC")!=null) 
-        {
-        	listaCuentas = (ArrayList<Cuenta>) request.getAttribute("listaC");
-        }
-        	
-        %>
-        
-        
-        
-       <h4>Cuentas</h4>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">                        
-          <thead>
-            <tr>
-              <th scope="col">Tipo Cuenta</th>
-              <th scope="col">Fecha Creacion</th>
-              <th scope="col">CBU</th>
-              <th scope="col">Saldo</th>              
-            </tr>                    
-            
-            <% 
-            
-            for(Cuenta user : listaCuentas)
-            {
-            %>
-            	 <tr>
-              <td> <%=user.getIdUsuario()%> </td>
-              <td> <%=user.getTipoCuenta()%> </td>
-              <td> <%=user.getFecha() %> </td>
-              <td> <%=user.getCBU() %> </td>
-              <td> <%=user.getSaldo() %> </td>              
-            </tr>
-            <%}%>
-            
-          </thead>          
-        </table>      
-      </div>
-      </div>
+			<div style="margin-left:20em;margin-top:2em;">
+	<h3>Cuentas</h3>
+	<a class="btn btn-primary" href="ABMLCuentas?Param=list">Mostrar Cuentas</a>
+	<% 
+	ArrayList<Cuenta> listaCuentas = null;
+	if(request.getAttribute("listaU")!=null)
+	{
+		listaCuentas = (ArrayList<Cuenta>) request.getAttribute("listaC");
+	}
+	
+	 %>
+	 <hr>
+	<table border="1" class="display">
+		<tr> <th>Numero de Cuenta</th> <th>idUsuario</th> <th>Tipo Cuenta</th> <th>CBU</th> <th>Saldo</th> <th></th> <th></th> </tr>
+		
+		<% 			
+		if(listaCuentas!=null)
+			for(Cuenta cu : listaCuentas) 
+			{
+			if(cu.getActivo() == 1) {
+		%>
+		<tr>  
+			<form name="formulario" action="ABMLCuentas?N_Cuenta=<%=cu.getN_Cuenta()%>" method="get">
+				<td><%=cu.getN_Cuenta() %>    <input type="hidden" name="idUsuario" value="<%=cu.getN_Cuenta()%>"> </td> 
+				<td><%=cu.getIdUsuario() %></td>   
+				<td><%=cu.getTipoCuenta() %></td>
+				<td><%=cu.getCBU() %></td>
+				<td><%=cu.getSaldo() %></td>
+				<td> <input type="submit" class="btn btn-danger" name="btnEliminar" value="Eliminar"> </td>  
+				<td> <input type="submit" class="btn btn-info" name="btnModificar" value="Modificar"> </td>  
+			</form> 
+		</tr>
+		<%  } %>
+		<%  } %>
+	</table>
+
+</div>
 </main>
