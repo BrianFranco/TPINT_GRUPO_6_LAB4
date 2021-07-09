@@ -39,8 +39,8 @@ public Usuario()
 	this.Provincia = "";
 	this.Telefono = "";
 	this.Email = "email@gmail.com";
-	DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
-	String dateInString = "01/01/1980";
+	DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+	String dateInString = "1980-01-01";
 	try {
 		this.fechaNac = formatter.parse(dateInString);
 	} catch (ParseException e) {
@@ -79,12 +79,12 @@ public void setActivo(int activo) {
 	Activo = activo;
 }
 public String getFechaNac() {
-	DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+	DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
 	
 	return formatter.format(this.fechaNac);
 }
 public void setFechaNac(String fechaNac) {
-	DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+	DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
 	String dateInString = fechaNac;
 	try {
 		this.fechaNac = formatter.parse(dateInString);

@@ -1,5 +1,6 @@
-<%@ page import="entidad.Cuenta" %>
-<%@ page import="java.util.ArrayList" %>
+<%@page import="entidad.Cuenta" %>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <jsp:include page="_baseAdministrador.jsp"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -10,6 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>ABML de Cuentas</title>
 </head>
+
 <main style="margin-left:20em;">
 	
 	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom border-top my-3">
@@ -49,7 +51,7 @@
 		<h2>Listado de cuentas</h2>
 	</div>	
       
-      <div class="table-responsive">   
+        
        <form class="row mb-3" method="post" action="servletCuenta" >            		
       		<div class="col-auto">
       			<label class="form-label" for="cuentaOrigen">Filtrar por tipo de cuenta: </label>
@@ -64,46 +66,76 @@
 			<div class="col-auto">
       			<label class="form-label" for="cuentaOrigen">Filtrar por Cliente Numero: </label>
       		</div>
-      	
-			    <div class="col-auto">
+			<div class="col-auto">
 			    	<input type="text" class="form-control" id="cliente">			    	
-				</div>	
-						
-			<div style="margin-left:20em;margin-top:2em;">
-	<h3>Cuentas</h3>
-	<a class="btn btn-primary" href="ABMLCuentas?Param=list">Mostrar Cuentas</a>
-	<% 
-	ArrayList<Cuenta> listaCuentas = null;
-	if(request.getAttribute("listaU")!=null)
-	{
-		listaCuentas = (ArrayList<Cuenta>) request.getAttribute("listaC");
-	}
-	
-	 %>
-	 <hr>
-	<table border="1" class="display">
-		<tr> <th>Numero de Cuenta</th> <th>idUsuario</th> <th>Tipo Cuenta</th> <th>CBU</th> <th>Saldo</th> <th></th> <th></th> </tr>
-		
-		<% 			
-		if(listaCuentas!=null)
-			for(Cuenta cu : listaCuentas) 
-			{
-			if(cu.getActivo() == 1) {
-		%>
-		<tr>  
-			<form name="formulario" action="ABMLCuentas?N_Cuenta=<%=cu.getN_Cuenta()%>" method="get">
-				<td><%=cu.getN_Cuenta() %>    <input type="hidden" name="idUsuario" value="<%=cu.getN_Cuenta()%>"> </td> 
-				<td><%=cu.getIdUsuario() %></td>   
-				<td><%=cu.getTipoCuenta() %></td>
-				<td><%=cu.getCBU() %></td>
-				<td><%=cu.getSaldo() %></td>
-				<td> <input type="submit" class="btn btn-danger" name="btnEliminar" value="Eliminar"> </td>  
-				<td> <input type="submit" class="btn btn-info" name="btnModificar" value="Modificar"> </td>  
-			</form> 
-		</tr>
+			</div>	
+			<div class="col-auto">
+				<input class="form-control" type="submit" name="btnListar" value="Listar" />
+			</div>
+		</form>			
+				<div class="table-responsive"> 
+				<% 
+				ArrayList<Cuenta> listaCuentas = null;
+				if(request.getAttribute("listaC")!=null)
+				{
+					listaCuentas = (ArrayList<Cuenta>) request.getAttribute("listaC");
+				}
+				%>
+				
+				<table class="table table-striped table-hover">
+				<caption> Resultado de busqueda </caption>
+				<thead class="table-dark">
+					<tr>
+						<th scope="col">Numero de Cuenta</th>
+						<th scope="col">Fecha de creacion</th>
+						<th scope="col">Id de Usuario</th>
+						<th scope="col">CBU</th>
+						<th scope="col">Tipo Cuenta</th>
+						<th scope="col">Saldo</th>
+						<th scope="col">Activo</th>
+					</tr>
+				</thead>
+				<tbody>
+				
+				<%  if(listaCuentas!=null)
+				for(Cuenta cu : listaCuentas) 
+				{
+				if(cu.getActivo() == 1) {
+				%>
+				<tr>
+					<form name="formulario" action="servletCuenta" method="post">
+						<% if( request.getParameter("Modificable") != null ){
+							if(request.getParameter("Modificable").equals(cu.getN_Cuenta())){
+						  %>
+					    	<td><%=cu.getN_Cuenta() %>    <input type="hidden" name="n_cuenta" value="<%=cu.getN_Cuenta()%>"> </td>
+					    	<td><%=cu.getFecha() %></td> 
+							<td><%=cu.getIdUsuario() %></td>   
+							<td><%=cu.getTipoCuenta() %></td>
+							<td><%=cu.getCBU() %></td>
+							<td><%=cu.getSaldo() %></td>
+							<td><%=cu.getActivo() %></td>
+							<td> <input type="submit" class="btn btn-danger" name="btnEliminar" value="Eliminar"> </td>   
+							<td> <input type="submit" class="btn btn-info" name="btnModificar" value="Modificar"> </td>
+						<% }else{
+							%>
+							<td><input type="text" name="n_cuenta" value="<%=cu.getN_Cuenta()%>"/>  </td>
+					    	<td><input type="text" name="fecha" value="<%= cu.getFecha() %>"/></td> 
+							<td><input type="text" name="id_usuario" value="<%= cu.getIdUsuario() %>"/></td>   
+							<td><input type="text" name="tipo_cuenta" value="<%= cu.getTipoCuenta() %>" /></td>
+							<td><input type="text" name="cbu" value="<%=cu.getCBU() %>" /><%=cu.getCBU() %></td>
+							<td><input type="text" name="saldo" value="<%=cu.getSaldo() %>"></td>
+							<td><input type="text" name="activo" value="<%=cu.getActivo() %>"></td>
+							<td> <input type="submit" class="btn btn-info" name="btnModificar" value="Guardar"> </td>
+							<td> <input type="submit" class="btn btn-danger" name="btnEliminar" value="Cancelar"> </td>   
+						<% } %>
+						<% } %>
+						  
+					</form>
+			</tr>
 		<%  } %>
 		<%  } %>
-	</table>
 
-</div>
+				</tbody>
+				</table>
+			</div>
 </main>

@@ -10,6 +10,8 @@ public class Cuenta {
 	private String saldo;
 	private int activo;
 	
+	
+	
 	public Cuenta() {
 		super();
 		N_Cuenta="";

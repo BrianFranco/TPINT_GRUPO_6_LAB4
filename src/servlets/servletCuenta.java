@@ -63,13 +63,28 @@ public class servletCuenta extends HttpServlet {
 			
 		if(request.getParameter("btnListar")!=null) {
 
-			cuentaDaoImpl cdao = new cuentaDaoImpl();
-			ArrayList<Cuenta> lista = cdao.obtenerTodos();
+			ArrayList<Cuenta> lista = negCuenta.listarArticulos();
 
 			request.setAttribute("listaC", lista);
 
 			RequestDispatcher rd = request.getRequestDispatcher("/ABMLCuentas.jsp");
 			rd.forward(request, response);
+		}
+		
+		if(request.getParameter("btnEliminar") != null) {
+			cuentaNegImpl cNeg = new cuentaNegImpl ();
+			if(cNeg.borrar(Integer.parseInt(request.getParameter("n_cuenta")))) {
+				//msj se borro correctamente
+			}
+			RequestDispatcher rd = request.getRequestDispatcher("/ABMLCuentas.jsp");
+			rd.forward(request, response);
+		}
+		if(request.getParameter("btnModificar") != null) {
+			Cuenta cuenta = new Cuenta();
+			//cuenta.set
+			if(negCuenta.editar(cuenta)) {
+				//msj se edito correctamente
+			}
 		}
 	}
 
