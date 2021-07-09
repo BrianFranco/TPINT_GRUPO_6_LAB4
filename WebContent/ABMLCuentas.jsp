@@ -104,10 +104,19 @@
 				%>
 				<tr>
 					<form name="formulario" action="servletCuenta" method="post">
-						<% if( request.getParameter("Modificable") != null ){
-							if(request.getParameter("Modificable").equals(cu.getN_Cuenta())){
-						  %>
-					    	<td><%=cu.getN_Cuenta() %>    <input type="hidden" name="n_cuenta" value="<%=cu.getN_Cuenta()%>"> </td>
+
+					<!-- 	  <td><input type="text" name="n_cuenta" value="<%=cu.getN_Cuenta()%>"/>  </td>
+					    	<td><input type="text" name="fecha" value="<%= cu.getFecha() %>"/></td> 
+							<td><input type="text" name="id_usuario" value="<%= cu.getIdUsuario() %>"/></td>   
+							<td><input type="text" name="tipo_cuenta" value="<%= cu.getTipoCuenta() %>" /></td>
+							<td><input type="text" name="cbu" value="<%=cu.getCBU() %>" /><%=cu.getCBU() %></td>
+							<td><input type="text" name="saldo" value="<%=cu.getSaldo() %>"></td>
+							<td><input type="text" name="activo" value="<%=cu.getActivo() %>"></td>
+							<td> <input type="submit" class="btn btn-info" name="btnModificar" value="Guardar"> </td>
+							<td> <input type="submit" class="btn btn-danger" name="btnEliminar" value="Cancelar"> </td>  
+					    	 -->
+
+							<td><%=cu.getN_Cuenta() %><input type="hidden" name="n_cuenta" value="<%=cu.getN_Cuenta()%>"/> </td>
 					    	<td><%=cu.getFecha() %></td> 
 							<td><%=cu.getIdUsuario() %></td>   
 							<td><%=cu.getTipoCuenta() %></td>
@@ -116,19 +125,7 @@
 							<td><%=cu.getActivo() %></td>
 							<td> <input type="submit" class="btn btn-danger" name="btnEliminar" value="Eliminar"> </td>   
 							<td> <input type="submit" class="btn btn-info" name="btnModificar" value="Modificar"> </td>
-						<% }else{
-							%>
-							<td><input type="text" name="n_cuenta" value="<%=cu.getN_Cuenta()%>"/>  </td>
-					    	<td><input type="text" name="fecha" value="<%= cu.getFecha() %>"/></td> 
-							<td><input type="text" name="id_usuario" value="<%= cu.getIdUsuario() %>"/></td>   
-							<td><input type="text" name="tipo_cuenta" value="<%= cu.getTipoCuenta() %>" /></td>
-							<td><input type="text" name="cbu" value="<%=cu.getCBU() %>" /><%=cu.getCBU() %></td>
-							<td><input type="text" name="saldo" value="<%=cu.getSaldo() %>"></td>
-							<td><input type="text" name="activo" value="<%=cu.getActivo() %>"></td>
-							<td> <input type="submit" class="btn btn-info" name="btnModificar" value="Guardar"> </td>
-							<td> <input type="submit" class="btn btn-danger" name="btnEliminar" value="Cancelar"> </td>   
-						<% } %>
-						<% } %>
+
 						  
 					</form>
 			</tr>

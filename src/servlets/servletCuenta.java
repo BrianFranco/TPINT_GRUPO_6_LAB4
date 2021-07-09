@@ -62,7 +62,8 @@ public class servletCuenta extends HttpServlet {
 		}
 			
 		if(request.getParameter("btnListar")!=null) {
-
+			
+		
 			ArrayList<Cuenta> lista = negCuenta.listarArticulos();
 
 			request.setAttribute("listaC", lista);
@@ -78,13 +79,6 @@ public class servletCuenta extends HttpServlet {
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("/ABMLCuentas.jsp");
 			rd.forward(request, response);
-		}
-		if(request.getParameter("btnModificar") != null) {
-			Cuenta cuenta = new Cuenta();
-			//cuenta.set
-			if(negCuenta.editar(cuenta)) {
-				//msj se edito correctamente
-			}
 		}
 	}
 
