@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.cj.Session;
+
 import datos.cuentaDao;
 import datosImpl.cuentaDaoImpl;
 import entidad.Cuenta;
@@ -47,6 +49,9 @@ public class servletCuenta extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
 		if(request.getParameter("btnGenerar")!=null) {
 			Cuenta x = new Cuenta();
 			x.setCBU(request.getParameter("nroCBU").toString());
@@ -56,17 +61,34 @@ public class servletCuenta extends HttpServlet {
 			x.setFecha(today.toString());
 			x.setActivo(1);
 			
-			negCuenta.insertar(x);
+			if(negCuenta.insertar(x))
+			{
+				request.setAttribute("msjGenerar", "Se creo una nueva cuenta exitosamente.");
+			}else {
+				request.setAttribute("msjGenerar", "Error, no se pudo crear la nueva cuenta.Revise los datos ingresados.");
+			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/ABMLCuentas.jsp");
 			dispatcher.forward(request, response);
 		}
+		
 			
 		if(request.getParameter("btnListar")!=null) {
+			String filtros = "";
 			
-		
-			ArrayList<Cuenta> lista = negCuenta.listarArticulos();
-
-			request.setAttribute("listaC", lista);
+			if(request.getParameter("cuentaOrigen").equals("1") || request.getParameter("cuentaOrigen").equals("2")) {
+				filtros+="Where idTipoCuenta="+Integer.parseInt(request.getParameter("cuentaOrigen"));
+				if(!request.getParameter("cliente").equals("")) {
+					filtros+=" AND IdUsuario="+Integer.parseInt(request.getParameter("cliente"));
+				}
+			}else if(!request.getParameter("cliente").equals("")){
+				filtros+="Where IdUsuario="+Integer.parseInt(request.getParameter("cliente"));
+			}
+			
+			
+			ArrayList<Cuenta> lista = negCuenta.listarCuentasFiltros(filtros);
+			request.getSession().setAttribute("listaC", lista);
+			
+			
 
 			RequestDispatcher rd = request.getRequestDispatcher("/ABMLCuentas.jsp");
 			rd.forward(request, response);
@@ -75,11 +97,56 @@ public class servletCuenta extends HttpServlet {
 		if(request.getParameter("btnEliminar") != null) {
 			cuentaNegImpl cNeg = new cuentaNegImpl ();
 			if(cNeg.borrar(Integer.parseInt(request.getParameter("n_cuenta")))) {
-				//msj se borro correctamente
+				request.setAttribute("msjTabla", "Se elimino la cuenta correctamente.");
 			}
+			
+			ArrayList<Cuenta> lista = negCuenta.listarArticulos();
+			
+			request.getSession().setAttribute("listaC", lista);
+			
 			RequestDispatcher rd = request.getRequestDispatcher("/ABMLCuentas.jsp");
 			rd.forward(request, response);
 		}
+		
+		if(request.getParameter("btnModificar") != null) {
+			
+			request.setAttribute("N_cuentaModificable", request.getParameter("n_cuenta"));
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/ABMLCuentas.jsp");
+			rd.forward(request, response);
+		}
+		
+		if(request.getParameter("btnGuardar")!= null) {
+			Cuenta cuenta = new Cuenta();
+			cuenta.setN_Cuenta(request.getParameter("n_cuenta"));
+			cuenta.setFecha(request.getParameter("fecha"));
+			cuenta.setIdUsuario(request.getParameter("id_usuario").toString());
+			cuenta.setTipoCuenta(request.getParameter("comboCuenta").toString());
+			cuenta.setCBU(request.getParameter("CBU").toString());
+			cuenta.setSaldo(request.getParameter("Saldo"));
+			cuenta.setActivo(Integer.parseInt(request.getParameter("activo")));
+
+			if(negCuenta.editar(cuenta)) {
+				//msj	se guardo bien la modificacion
+				request.setAttribute("msjTabla", "Se guardaron los datos correctamente.");
+			}else {
+				//msj error al guardar la modificacion
+				request.setAttribute("msjTabla", "Error no se guardaron los cambios.Revise los datos ingresados.");
+			}
+			
+			ArrayList<Cuenta> lista = negCuenta.listarArticulos();
+			
+			request.getSession().setAttribute("listaC", lista);
+			RequestDispatcher rd = request.getRequestDispatcher("/ABMLCuentas.jsp");
+			rd.forward(request, response);
+		}
+		
+		if(request.getParameter("btnCancelar")!=null) {
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/ABMLCuentas.jsp");
+			rd.forward(request, response);
+		}
+
 	}
 
 }

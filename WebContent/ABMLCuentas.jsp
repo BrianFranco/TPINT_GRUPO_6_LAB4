@@ -46,6 +46,13 @@
 			<input type="submit" name="btnGenerar" class="btn btn-primary" value="Generar Cuenta"/>
 		</div>
 	</form>
+	
+	<% if (request.getAttribute("msjGenerar") != null){ 	
+        	 %>
+        	 	<div class="alert alert-secondary" role="alert">
+        	 		<%=request.getAttribute("msjGenerar")%>
+				</div>
+       		<%	}%>
 			
 	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom border-top my-3">
 		<h2>Listado de cuentas</h2>
@@ -58,7 +65,7 @@
       		</div>
       		<div class="col-auto">
 			    <select class="form-select" aria-label="Default select example" name="cuentaOrigen">
-				  		<option selected></option>
+				  		<option value ="0" selected>Elegir cuenta</option>
 				  		<option value="1">Caja de Ahorro</option>
 						<option value="2">Cuenta Corriente</option>						
 				</select>
@@ -67,18 +74,27 @@
       			<label class="form-label" for="cuentaOrigen">Filtrar por Cliente Numero: </label>
       		</div>
 			<div class="col-auto">
-			    	<input type="text" class="form-control" id="cliente">			    	
+			    	<input type="text" class="form-control" name="cliente">			    	
 			</div>	
 			<div class="col-auto">
 				<input class="form-control" type="submit" name="btnListar" value="Listar" />
 			</div>
 		</form>			
+		
+			<% if (request.getAttribute("msjTabla") != null){ 	
+        	 %>
+        	 	<div class="alert alert-secondary" role="alert">
+        	 		<%=request.getAttribute("msjTabla")%>
+				</div>
+       		<%	}%>
+				
+				
 				<div class="table-responsive"> 
 				<% 
 				ArrayList<Cuenta> listaCuentas = null;
-				if(request.getAttribute("listaC")!=null)
+				if(session.getAttribute("listaC")!=null)
 				{
-					listaCuentas = (ArrayList<Cuenta>) request.getAttribute("listaC");
+					listaCuentas = (ArrayList<Cuenta>) session.getAttribute("listaC");
 				}
 				%>
 				
@@ -89,8 +105,8 @@
 						<th scope="col">Numero de Cuenta</th>
 						<th scope="col">Fecha de creacion</th>
 						<th scope="col">Id de Usuario</th>
-						<th scope="col">CBU</th>
 						<th scope="col">Tipo Cuenta</th>
+						<th scope="col">CBU</th>
 						<th scope="col">Saldo</th>
 						<th scope="col">Activo</th>
 					</tr>
@@ -100,36 +116,57 @@
 				<%  if(listaCuentas!=null)
 				for(Cuenta cu : listaCuentas) 
 				{
-				if(cu.getActivo() == 1) {
 				%>
 				<tr>
 					<form name="formulario" action="servletCuenta" method="post">
-
-					<!-- 	  <td><input type="text" name="n_cuenta" value="<%=cu.getN_Cuenta()%>"/>  </td>
-					    	<td><input type="text" name="fecha" value="<%= cu.getFecha() %>"/></td> 
-							<td><input type="text" name="id_usuario" value="<%= cu.getIdUsuario() %>"/></td>   
-							<td><input type="text" name="tipo_cuenta" value="<%= cu.getTipoCuenta() %>" /></td>
-							<td><input type="text" name="cbu" value="<%=cu.getCBU() %>" /><%=cu.getCBU() %></td>
-							<td><input type="text" name="saldo" value="<%=cu.getSaldo() %>"></td>
-							<td><input type="text" name="activo" value="<%=cu.getActivo() %>"></td>
-							<td> <input type="submit" class="btn btn-info" name="btnModificar" value="Guardar"> </td>
-							<td> <input type="submit" class="btn btn-danger" name="btnEliminar" value="Cancelar"> </td>  
-					    	 -->
-
-							<td><%=cu.getN_Cuenta() %><input type="hidden" name="n_cuenta" value="<%=cu.getN_Cuenta()%>"/> </td>
-					    	<td><%=cu.getFecha() %></td> 
-							<td><%=cu.getIdUsuario() %></td>   
-							<td><%=cu.getTipoCuenta() %></td>
-							<td><%=cu.getCBU() %></td>
-							<td><%=cu.getSaldo() %></td>
-							<td><%=cu.getActivo() %></td>
-							<td> <input type="submit" class="btn btn-danger" name="btnEliminar" value="Eliminar"> </td>   
-							<td> <input type="submit" class="btn btn-info" name="btnModificar" value="Modificar"> </td>
-
-						  
+					
+									<%
+									if(request.getAttribute("N_cuentaModificable")!=null && request.getAttribute("N_cuentaModificable").equals(cu.getN_Cuenta())){
+									%>
+									<td><input type="text" name="n_cuenta" value="<%=cu.getN_Cuenta()%>"/> </td>
+							    	<td> <input type="date" name="fecha" value="<%=cu.getFecha()%>"/> </td> 
+									<td><input type="text" name="id_usuario" value="<%=cu.getIdUsuario()%>"/> </td>   
+									<td> <select name="comboCuenta">
+											<%if(cu.getTipoCuenta().equals("1")){ %>
+												<option value="1" selected>Cuenta Corriente</option>
+												<option value="2">Caja de ahorro</option>
+											<% }else{%>
+												<option value="1">Cuenta Corriente</option>
+												<option value="2" selected>Caja de ahorro</option>
+											<% }%>
+											</select></td>
+									<td> <input type="text" name="CBU" value="<%=cu.getCBU()%>"/> </td>
+									<td> <input type="text" name="Saldo" value="<%=cu.getSaldo()%>"/> </td>
+									<td> <select name="activo">
+											<%if(cu.getActivo() == 1){ %>
+												<option value="1" selected>1</option>
+												<option value="0">0</option>
+											<% }else{%>
+												<option value="1">1</option>
+												<option value="0" selected>0</option>
+											<% }%>
+											</select> </td>
+									
+									<td> <input type="submit" class="btn btn-info" name="btnGuardar" value="Guardar"> </td>
+									<td> <input type="submit" class="btn btn-danger" name="btnCancelar" value="Cancelar"> </td>   
+									
+									<% }else{%>
+									<td><%=cu.getN_Cuenta() %><input type="hidden" name="n_cuenta" value="<%=cu.getN_Cuenta()%>"/> </td>
+							    	<td> <%=cu.getFecha() %> </td> 
+									<td> <%=cu.getIdUsuario() %> </td>   
+									<td> <%=cu.getTipoCuenta() %> </td>
+									<td><%=cu.getCBU() %></td>
+									<td><%=cu.getSaldo() %></td>
+									<td><%=cu.getActivo() %></td>
+									
+									<td> <input type="submit" class="btn btn-info" name="btnModificar" value="Modificar"> </td>
+									<%if(cu.getActivo() == 1){ %>
+									<td> <input type="submit" class="btn btn-danger" name="btnEliminar" value="Eliminar"> </td>   
+									<%} %>
+							
+								<%}	%>
 					</form>
 			</tr>
-		<%  } %>
 		<%  } %>
 
 				</tbody>

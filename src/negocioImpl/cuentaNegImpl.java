@@ -22,6 +22,12 @@ public class cuentaNegImpl implements cuentaNeg{
 	}
 	
 	@Override
+	public ArrayList<Cuenta> listarCuentasFiltros(String filtro) {
+
+		return (ArrayList<Cuenta>) artDao.obtenerCuentasFiltro(filtro);
+	}
+
+	@Override
 	public ArrayList<Cuenta> listarArticulos() {
 		return (ArrayList<Cuenta>) artDao.obtenerTodos();
 	}

@@ -4,7 +4,6 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
-import java.util.List;
 import java.sql.ResultSet;
 
 import datos.cuentaDao;
@@ -98,9 +97,60 @@ public class cuentaDaoImpl implements cuentaDao{
 	}
 
 	@Override
+	public ArrayList<Cuenta> obtenerCuentasFiltro(String filtro) {
+		cn = new Conexion();
+		cn.Open();
+		 ArrayList<Cuenta> list = new ArrayList<Cuenta>();
+		 try
+		 {
+			 ResultSet rs= cn.query("Select * From cuentas "+filtro);
+			 while(rs.next())
+			 {
+				 Cuenta cu = new Cuenta();
+				 
+				 cu.setN_Cuenta(String.valueOf(rs.getInt("cuentas.N_cuenta")));
+				 cu.setFecha(rs.getString("cuentas.F_Creacion"));
+				 cu.setIdUsuario(String.valueOf(rs.getInt("cuentas.IdUsuario")));
+				 cu.setCBU(rs.getString("cuentas.CBU"));
+				 cu.setTipoCuenta(String.valueOf(rs.getInt("cuentas.IdTipoCuenta")));
+				 cu.setSaldo(String.valueOf(rs.getFloat("cuentas.Saldo")));
+				 cu.setActivo(rs.getInt("cuentas.Activo"));
+				 list.add(cu);
+			 }
+			 
+		 }
+		 catch(Exception e)
+		 {
+			 e.printStackTrace();
+		 }
+		 finally
+		 {
+			 cn.close();
+		 }
+		 return list;
+	}
+
+	@Override
 	public boolean editar(Cuenta cuenta) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean estado=true;
+
+		cn = new Conexion();
+		cn.Open();	
+
+		String query = "UPDATE cuentas SET N_Cuenta='"+cuenta.getN_Cuenta()+"', F_Creacion='"+cuenta.getFecha()+"', IdUsuario='"+cuenta.getIdUsuario()+"', CBU='"+cuenta.getCBU()+"', IdTipoCuenta='"+cuenta.getTipoCuenta()+"', Saldo='"+cuenta.getSaldo()+"', Activo='"+cuenta.getActivo()+"' WHERE N_Cuenta='"+cuenta.getN_Cuenta()+"'";
+		try
+		 {
+			estado=cn.execute(query);
+		 }
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			cn.close();
+		}
+		return estado;
 	}
 
 	@Override
