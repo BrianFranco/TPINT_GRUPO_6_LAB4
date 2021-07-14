@@ -1,4 +1,5 @@
 <%@ page import="entidad.Usuario" %>
+<%@ page import="javax.servlet.RequestDispatcher" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -14,8 +15,17 @@
 	Usuario u = new Usuario();
 	if(session.getAttribute("Usuario") != null){
 		u = (Usuario) session.getAttribute("Usuario");
+		if(u.getIdRol()==1){
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/Cuentas.jsp");
+			dispatcher.forward(request, response);
+		}
+	}else{
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/IniciarSesion.jsp");
+		dispatcher.forward(request, response);
 	}
 %>
+
+
 
 </head>
 <body>
@@ -106,6 +116,6 @@
       feather.replace()
     </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

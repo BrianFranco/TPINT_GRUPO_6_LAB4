@@ -36,29 +36,13 @@
                </form>
             </div>
          </div>
-         <% if (request.getAttribute("errorCampoVacio") != null){
-        	 	
-        	 %>
+         
+         <% if (request.getAttribute("msjError") != null){
+        	 	%>
         	 	<div class="alert alert-danger" role="alert">
-  					Error. Debe completar todos los campos.
+        	 		<%=request.getAttribute("msjError") %>
 				</div>
-        <%	 	
-         }	         
-         %>
-         
-         <% if (request.getAttribute("errorUsuarioIncorrecto") != null){
-        	 	
-        	 %>
-        	 	<div class="alert alert-danger" role="alert">
-  					Error. El usuario o contraseña ingresado es incorrecto.
-				</div>
-        <%	 	
-         }	         
-         %>
-         
-         
-         
-         
+        <%	 }	%>
       </div>
 	
 </body>

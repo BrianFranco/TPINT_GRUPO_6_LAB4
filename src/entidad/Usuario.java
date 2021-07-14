@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.tomcat.util.buf.StringCache;
+
 
 public class Usuario {
 private int IdUsuario;
@@ -23,6 +23,7 @@ private String Localidad;
 private String Provincia;
 private String Telefono;
 private String Email;
+private int idRol;
 private int Activo;
 
 //constructor
@@ -39,6 +40,7 @@ public Usuario()
 	this.Provincia = "";
 	this.Telefono = "";
 	this.Email = "email@gmail.com";
+	this.idRol = 1;
 	DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
 	String dateInString = "1980-01-01";
 	try {
@@ -53,7 +55,7 @@ public Usuario()
 
 public Usuario(String Nombre,String Apellido, int Dni, String cuil,String NomUsuario, Date fechaNac,
 			String genero,String nacionalidad,String Contraseña,
-			String Direccion,String Localidad,String Provincia,String Telefono,String Email)
+			String Direccion,String Localidad,String Provincia,String Telefono,String Email,int idRol)
 {
 	this.Nombre=Nombre;
 	this.Apellido=Apellido;
@@ -69,7 +71,20 @@ public Usuario(String Nombre,String Apellido, int Dni, String cuil,String NomUsu
 	this.Provincia = Provincia;
 	this.Telefono = Telefono;
 	this.Email = Email;
+	this.idRol = idRol;
 	this.Activo = 1;
+}
+
+public int getIdRol() {
+	return idRol;
+}
+
+public void setIdRol(int idRol) {
+	this.idRol = idRol;
+}
+
+public void setFechaNac(Date fechaNac) {
+	this.fechaNac = fechaNac;
 }
 
 public int getActivo() {
@@ -187,10 +202,6 @@ public void setContraseña(String contraseña) {
 public String toString() {
 	return "Usuario [Nombre=" + Nombre + ", Apellido=" + Apellido + ", Dni=" + Dni + ", NomUsuario=" + NomUsuario
 			+ ", Contraseña=" + Contraseña + " ]";
-}
-public void setRolUsu(int parseInt) {
-	// TODO Auto-generated method stub
-	
 }
 
 }

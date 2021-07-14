@@ -53,17 +53,20 @@ public class ServletIniciarSesion extends HttpServlet {
 				usuarioBuscado = negUsuario.buscarUsuario(u);
 				if(usuarioBuscado != null) {
 					request.getSession().setAttribute("Usuario",usuarioBuscado );
-					redireccion = "/DatosPersonales.jsp";
+					if(usuarioBuscado.getIdRol() == 1) {
+						redireccion = "/Cuentas.jsp";
+					}else {
+						redireccion = "/ABMLClientes.jsp";
+					}
+					
 				}else {
-					boolean error=true;
-					request.setAttribute("errorUsuarioIncorrecto",error);
+					request.setAttribute("msjError", "Error. El usuario o contraseña ingresado es incorrecto.");
 					redireccion = "/IniciarSesion.jsp";
 				}
 				
 				
 			}else {
-				boolean error=true;
-				request.setAttribute("errorCampoVacio",error);
+				request.setAttribute("msjError", "Error. Debe completar todos los campos.");
 				redireccion = "/IniciarSesion.jsp";
 				//Mensaje que deben completar todos los campos.
 			}

@@ -7,8 +7,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import entidad.Usuario;
 import datos.UsuarioDao;
@@ -228,12 +226,24 @@ public class UsuarioDaoImpl implements UsuarioDao {
 				
 				if(rs.next()) {
 					usu = new Usuario();
-					usu.setApellido(rs.getString("usuarios.apellido"));
-					usu.setNombre(rs.getString("usuarios.nombre"));
-					usu.setNomUsuario(rs.getString("usuarios.nombreusuario"));
-					usu.setRolUsu(rs.getInt("usuarios.idrol"));
-					usu.setContraseña(rs.getString("usuarios.Password"));
+					usu.setIdUsuario(rs.getInt("usuarios.IdUsuario"));
+					usu.setNombre(rs.getString("usuarios.Nombre"));
+					usu.setApellido(rs.getString("usuarios.Apellido"));
 					usu.setDni(rs.getInt("usuarios.Dni"));
+					usu.setCuil(rs.getString("usuarios.Cuil"));
+					usu.setFechaNac(rs.getString("usuarios.F_Nacimiento"));
+					usu.setGenero(rs.getString("usuarios.Genero"));
+					usu.setNacionalidad(rs.getString("usuarios.Nacionalidad"));
+					usu.setNomUsuario(rs.getString("usuarios.NombreUsuario"));
+					usu.setContraseña(rs.getString("usuarios.Password"));
+					usu.setDireccion(rs.getString("usuarios.Direccion"));
+					usu.setLocalidad(rs.getString("usuarios.Localidad"));
+					usu.setProvincia(rs.getString("usuarios.Provincia"));
+					usu.setTelefono(rs.getString("usuarios.Telefono"));
+					usu.setEmail(rs.getString("usuarios.Email"));
+					usu.setIdRol(rs.getInt("usuarios.IdRol"));
+					usu.setActivo(rs.getInt("usuarios.Activo"));
+					
 				}
 			}catch(Exception e) {
 				e.printStackTrace();
