@@ -1,6 +1,10 @@
 <jsp:include page="_base.jsp" />
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entidad.*"%>
+    <%@ page import="java.time.LocalDate" %>
 <!DOCTYPE html>
 
 <head>
@@ -8,28 +12,52 @@
 <title>Prestamos</title>
 <jsp:include page="/Css/EstilosPrestamo.css"></jsp:include>
 </head>
+	
+
+	<%
+		HttpSession s=request.getSession();
+		int id=(Integer)(s.getAttribute("Id"));
+	
+		List<Cuenta> listaC = new ArrayList<Cuenta>();
+		if (request.getAttribute("listaCuenta") != null) {
+			listaC = (List<Cuenta>) request.getAttribute("listaCuenta");
+		}
+		
+		s.setAttribute("listCuentasUser", new ArrayList<Cuenta>());
+	%>
 
 <main style="margin-left:20em;">
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"></div>
 <h2>Pedido de Prestamo</h2>
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"></div>
-		<form class="row g-3">
+		<form class="row g-3" action="servletPredidoPrestamos" method="post">
+		<div class="col input-group">
+			<span class="input-group-text" id="basic-addon1">Fecha</span>
+			<input type="text" class="form-control" disabled="disabled" name="fecha" value="<%= java.time.LocalDate.now() %>">
+		</div>
 		<div class="col-12">
-		<label class="form-label">Cuenta destino</label>
-		    <select class="form-select" aria-label="Default select example">
-			  <option selected>Seleccione la cuenta</option>
-			  <option value="1">Cta:Nro. 0001 - Disponible: 0000$</option>
-			  <option value="2">Cta:Nro. 0002 - Disponible: 0000$</option>
-			  <option value="3">Cta:Nro. 0003 - Disponible: 0000$</option>
+			<label class="form-label" for="cuentaOrigen">Seleccionar cuenta: </label>
+			<select class="form-select" aria-label="Default select example" name="cuentaOrigen">
+				<option selected>Selecciones una cuenta </option>
+				<%
+					for (Cuenta c : listaC) {
+				%>
+				<option value="<%=c.getN_Cuenta()%>"><%=c.toStringListaTr()%></option>
+				<%
+					}
+				%>
 			</select>
-		  </div>
-		  <div class="col-12">
-		    <label for="importe" class="form-label">Monto de prestamo</label>
-		    <input type="text" class="form-control" id="importe">
+		</div> 
+		<div>
+			<input type="hidden" name="idUser" value="<%= id %>">
+		</div>
+		<div class="col-12">
+		    <label for="monto" class="form-label">Monto de prestamo</label>
+		    <input type="text" class="form-control" name="txtImporte" id="monto">
 		  </div>
 		  <div class="col-12">
 		  	<label class="form-label">Cuotas</label>
-		    <select class="form-select" aria-label="Default select example">
+		    <select class="form-select" aria-label="Default select example" name="cantCuotas">
 			  <option selected>Numero de cuotas</option>
 			  <option value="1">1</option>
 			  <option value="2">2</option>
@@ -46,7 +74,7 @@
 			</select>
 		  </div>
 		  <hr>
-
+		<hr>
 		  <div class="col-12">
 		  	<a href="Cuentas.jsp" class="btn btn-danger">Cancelar</a>
 		  	<input type="submit" value="Aceptar" name="btnAceptar" class="btn btn-primary"/>

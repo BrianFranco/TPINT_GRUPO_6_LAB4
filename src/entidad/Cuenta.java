@@ -85,4 +85,8 @@ public class Cuenta {
 	public void setActivo(int activo) {
 		this.activo = activo;
 	}
+	
+	public String toStringListaTr() {
+		return "Numero de Cuenta " + N_Cuenta + ", CBU=" + CBU + ", saldo=" + saldo;
+	}
 }

@@ -1,7 +1,11 @@
 package negocioImpl;
 import negocio.UsuarioNeg;
+
+import java.util.ArrayList;
+
 import datos.UsuarioDao;
 import datosImpl.UsuarioDaoImpl;
+import entidad.Cuenta;
 import entidad.Usuario;
 
 public class UsuarioNegImpl implements UsuarioNeg{
@@ -28,7 +32,9 @@ public class UsuarioNegImpl implements UsuarioNeg{
 		
 		return usuDao.buscarUsuario(usuario);
 	}
-	
+	public ArrayList<Cuenta> listarCuentas(int Id) {
+		return (ArrayList<Cuenta>) usuDao.listarCuentas(Id);
+	}
 	
 	
 }

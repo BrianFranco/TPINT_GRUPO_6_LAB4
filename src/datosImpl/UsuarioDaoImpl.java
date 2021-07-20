@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import entidad.Cuenta;
 import entidad.Usuario;
 import datos.UsuarioDao;
 
@@ -251,6 +252,41 @@ public class UsuarioDaoImpl implements UsuarioDao {
 				cn.close();
 			}
 			return usu;
+		}
+		
+		@Override
+		public ArrayList<Cuenta> listarCuentas(int id) {
+			cn = new Conexion();
+			cn.Open();
+			 ArrayList<Cuenta> list = new ArrayList<Cuenta>();
+			 try
+			 {
+				 ResultSet rs= cn.query("Select * From cuentas Where IdUsuario = "+id);
+				 while(rs.next())
+				 {
+					 Cuenta cu = new Cuenta();
+					 
+					 cu.setN_Cuenta(String.valueOf(rs.getInt("cuentas.N_cuenta")));
+					 cu.setFecha(rs.getString("cuentas.F_Creacion"));
+					 cu.setIdUsuario(String.valueOf(rs.getInt("cuentas.IdUsuario")));
+					 cu.setCBU(rs.getString("cuentas.CBU"));
+					 cu.setTipoCuenta(String.valueOf(rs.getInt("cuentas.IdTipoCuenta")));
+					 cu.setSaldo(String.valueOf(rs.getFloat("cuentas.Saldo")));
+					 cu.setActivo(rs.getInt("cuentas.Activo"));
+					 list.add(cu);
+					 //System.out.println(cu.toStringListaTr());
+				 }
+				 
+			 }
+			 catch(Exception e)
+			 {
+				 e.printStackTrace();
+			 }
+			 finally
+			 {
+				 cn.close();
+			 }
+			 return list;
 		}
 
 		

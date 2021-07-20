@@ -1,7 +1,7 @@
 <%@ page import="entidad.Usuario" %>
-<%@ page import="javax.servlet.RequestDispatcher" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page session="true" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -15,14 +15,10 @@
 	Usuario u = new Usuario();
 	if(session.getAttribute("Usuario") != null){
 		u = (Usuario) session.getAttribute("Usuario");
-		if(u.getIdRol()==2){
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/ABMLClientes.jsp");
-			dispatcher.forward(request, response);
-		}
-	}else{
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/IniciarSesion.jsp");
-		dispatcher.forward(request, response);
 	}
+	HttpSession s=request.getSession();
+	int id= u.getIdUsuario();
+	s.setAttribute("Id",id);
 %>
 
 </head>
@@ -62,22 +58,22 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Transferir.jsp">
+            <a class="nav-link" href="servletTransferencias?Param=list&id=<%=u.getIdUsuario()%>">
               <span data-feather="send"></span>
               Transferir Dinero
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Prestamo.jsp">
+            <a class="nav-link" href="servletPredidoPrestamos?Param=list&id=<%=u.getIdUsuario()%>">
               <span data-feather="dollar-sign"></span>
               Solicitar Prestamo
             </a>
           </li>
           <li class="nav-item">
-          		<a class="nav-link" href="PagoPrestamo.jsp">
-          			<span data-feather="edit-3"></span>
-          			Pagar prestamos
-          		</a>
+        	<a class="nav-link" href="servletPagoPestamos?Param=list&id=<%=u.getIdUsuario()%>">
+        		<span data-feather="edit-3"></span>
+        		Pagar prestamos
+        	</a>
           </li>
           
         </ul>
@@ -91,6 +87,6 @@
       feather.replace()
     </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
