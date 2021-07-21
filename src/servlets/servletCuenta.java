@@ -7,21 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.mysql.cj.Session;
-
-import datos.cuentaDao;
-import datosImpl.cuentaDaoImpl;
 import entidad.Cuenta;
 import entidad.TipoCuenta;
 import negocio.cuentaNeg;
 import negocioImpl.cuentaNegImpl;
 import javax.servlet.RequestDispatcher;
-
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 
@@ -115,21 +106,22 @@ public class servletCuenta extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
-		TipoCuenta tc = new TipoCuenta();
-		tc.setIDTipoCuenta(Integer.parseInt(request.getParameter("comboCuenta").toString()));
+		
 		
 		if(request.getParameter("btnGuardar")!= null) {
 			Cuenta cuenta = new Cuenta();
 			cuenta.setN_Cuenta(request.getParameter("n_cuenta"));
 			cuenta.setFecha(request.getParameter("fecha"));
 			cuenta.setIdUsuario(request.getParameter("id_usuario").toString());
-			int tipoC = Integer.parseInt(request.getParameter("comboCuenta").toString());
-			if(tipoC==1){
+			
+			TipoCuenta tc = new TipoCuenta();
+			tc.setIDTipoCuenta(Integer.parseInt(request.getParameter("comboCuenta").toString()));
+			if(tc.getIDTipoCuenta()==1){
 				tc.setDescripcion("Cuenta Corriente");							
 			}else {
 				tc.setDescripcion("Caja de Ahorro");
 			}		
-			tc.setIDTipoCuenta(tipoC);
+			
 			cuenta.setTipoCuenta(tc);
 			cuenta.setCBU(request.getParameter("CBU").toString());
 			cuenta.setSaldo(request.getParameter("Saldo"));

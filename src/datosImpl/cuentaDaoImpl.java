@@ -15,7 +15,7 @@ public class cuentaDaoImpl implements cuentaDao{
 	
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user = "root";
-	private String pass = "ROOT";
+	private String pass = "root";
 	private String dbName = "bdbanco";
 	
 	private Conexion cn;
@@ -65,7 +65,7 @@ public class cuentaDaoImpl implements cuentaDao{
 		 ArrayList<Cuenta> list = new ArrayList<Cuenta>();
 		 try
 		 {
-			 ResultSet rs= cn.query("Select A.*,B.DESCRIPCION From cuentas A JOIN tipocuenta B on A.IdTipoCuenta = B.IdTipoCuenta");
+			 ResultSet rs= cn.query("Select * From cuentas ");
 			 while(rs.next())
 			 {
 				 Cuenta cu = new Cuenta();
@@ -74,11 +74,14 @@ public class cuentaDaoImpl implements cuentaDao{
 				 cu.setFecha(rs.getString("cuentas.F_Creacion"));
 				 cu.setIdUsuario(String.valueOf(rs.getInt("cuentas.IdUsuario")));
 				 cu.setCBU(rs.getString("cuentas.CBU"));
+				 ResultSet rs2= cn.query("Select * From tipocuenta WHERE IdTipoCuenta =" + rs.getInt("cuentas.IdTipoCuenta")  );
 				 TipoCuenta tc = new TipoCuenta();
-				 int idtipo = rs.getInt("IdTipoCuenta");
-				 tc.setIDTipoCuenta(idtipo);
-				 tc.setDescripcion(rs.getString("DESCRIPCION"));
+				 while(rs2.next()) {					 
+					 tc.setIDTipoCuenta(rs2.getInt(1));
+					 tc.setDescripcion(rs2.getString(2));					  
+				 }		
 				 cu.setTipoCuenta(tc);
+				 
 				 cu.setSaldo(String.valueOf(rs.getFloat("cuentas.Saldo")));
 				 cu.setActivo(rs.getInt("cuentas.Activo"));
 				 list.add(cu);
@@ -198,7 +201,10 @@ public class cuentaDaoImpl implements cuentaDao{
 		cn = new Conexion();
 		cn.Open();	
 
-		String query = "UPDATE cuentas SET N_Cuenta='"+cuenta.getN_Cuenta()+"', F_Creacion='"+cuenta.getFecha()+"', IdUsuario='"+cuenta.getIdUsuario()+"', CBU='"+cuenta.getCBU()+"', IdTipoCuenta='"+cuenta.getTipoCuenta()+"', Saldo='"+cuenta.getSaldo()+"', Activo='"+cuenta.getActivo()+"' WHERE N_Cuenta='"+cuenta.getN_Cuenta()+"'";
+		String query = "UPDATE cuentas SET N_Cuenta='"+cuenta.getN_Cuenta()+"', F_Creacion='"
+		+cuenta.getFecha()+"', IdUsuario='"+cuenta.getIdUsuario()+"', CBU='"+cuenta.getCBU()
+		+"', IdTipoCuenta='"+cuenta.getTipoCuenta().getIDTipoCuenta()+"', Saldo='"+cuenta.getSaldo()
+		+"', Activo='"+cuenta.getActivo()+"' WHERE N_Cuenta='"+cuenta.getN_Cuenta()+"'";
 		try
 		 {
 			estado=cn.execute(query);

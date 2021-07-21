@@ -12,7 +12,7 @@
 <title>ABML de Cuentas</title>
 </head>
 
-<main style="margin-left:20em;">
+<div style="margin-left:20em;">
 	
 	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom border-top my-3">
 		<h2>Generar una nueva Cuenta</h2>
@@ -172,4 +172,4 @@
 				</tbody>
 				</table>
 			</div>
-</main>
+</div>
