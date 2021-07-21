@@ -1,7 +1,6 @@
 /datos/
 /datosImpl/
 /entidad/
-/negocio/
 /negocioImpl/
-/presentacion/
+/negocio/
 /servlets/

@@ -13,6 +13,7 @@ import com.mysql.cj.Session;
 import datos.cuentaDao;
 import datosImpl.cuentaDaoImpl;
 import entidad.Cuenta;
+import entidad.TipoCuenta;
 import negocio.cuentaNeg;
 import negocioImpl.cuentaNegImpl;
 import javax.servlet.RequestDispatcher;
@@ -56,7 +57,8 @@ public class servletCuenta extends HttpServlet {
 			Cuenta x = new Cuenta();
 			x.setCBU(request.getParameter("nroCBU").toString());
 			x.setIdUsuario(request.getParameter("idUsuario").toString());
-			x.setTipoCuenta(request.getParameter("comboCuenta").toString());
+			TipoCuenta tc = new TipoCuenta();
+			tc.setIDTipoCuenta(Integer.parseInt(request.getParameter("comboCuenta").toString()));
 			x.setSaldo("10000");
 			x.setFecha(today.toString());
 			x.setActivo(1);
@@ -83,13 +85,10 @@ public class servletCuenta extends HttpServlet {
 			}else if(!request.getParameter("cliente").equals("")){
 				filtros+="Where IdUsuario="+Integer.parseInt(request.getParameter("cliente"));
 			}
-			
-			
+						
 			ArrayList<Cuenta> lista = negCuenta.listarCuentasFiltros(filtros);
 			request.getSession().setAttribute("listaC", lista);
 			
-			
-
 			RequestDispatcher rd = request.getRequestDispatcher("/ABMLCuentas.jsp");
 			rd.forward(request, response);
 		}
@@ -116,12 +115,22 @@ public class servletCuenta extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
+		TipoCuenta tc = new TipoCuenta();
+		tc.setIDTipoCuenta(Integer.parseInt(request.getParameter("comboCuenta").toString()));
+		
 		if(request.getParameter("btnGuardar")!= null) {
 			Cuenta cuenta = new Cuenta();
 			cuenta.setN_Cuenta(request.getParameter("n_cuenta"));
 			cuenta.setFecha(request.getParameter("fecha"));
 			cuenta.setIdUsuario(request.getParameter("id_usuario").toString());
-			cuenta.setTipoCuenta(request.getParameter("comboCuenta").toString());
+			int tipoC = Integer.parseInt(request.getParameter("comboCuenta").toString());
+			if(tipoC==1){
+				tc.setDescripcion("Cuenta Corriente");							
+			}else {
+				tc.setDescripcion("Caja de Ahorro");
+			}		
+			tc.setIDTipoCuenta(tipoC);
+			cuenta.setTipoCuenta(tc);
 			cuenta.setCBU(request.getParameter("CBU").toString());
 			cuenta.setSaldo(request.getParameter("Saldo"));
 			cuenta.setActivo(Integer.parseInt(request.getParameter("activo")));
@@ -131,7 +140,7 @@ public class servletCuenta extends HttpServlet {
 				request.setAttribute("msjTabla", "Se guardaron los datos correctamente.");
 			}else {
 				//msj error al guardar la modificacion
-				request.setAttribute("msjTabla", "Error no se guardaron los cambios.Revise los datos ingresados.");
+				request.setAttribute("msjTabla", "Error no se guardaron los cambios.");
 			}
 			
 			ArrayList<Cuenta> lista = negCuenta.listarArticulos();

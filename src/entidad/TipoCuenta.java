@@ -1,7 +1,7 @@
 package entidad;
 
 import org.apache.tomcat.util.buf.StringCache;
-
+/*
 public class TipoCuenta {
 	public String getIDTipoCuenta() {
 		return IDTipoCuenta;
@@ -17,4 +17,21 @@ public class TipoCuenta {
 	}
 	private String IDTipoCuenta;
 	private StringCache Descripcion;
+}*/
+
+public class TipoCuenta {
+	public int getIDTipoCuenta() {
+		return IDTipoCuenta;
+	}
+	public void setIDTipoCuenta(int iDTipoCuenta) {
+		IDTipoCuenta = iDTipoCuenta;
+	}
+	public String getDescripcion() {
+		return Descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		Descripcion = descripcion;
+	}
+	private int IDTipoCuenta;
+	private String Descripcion;
 }

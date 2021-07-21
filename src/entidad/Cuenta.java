@@ -1,16 +1,13 @@
 package entidad;
 
-
 public class Cuenta {
 	private String N_Cuenta;
 	private String CBU;
 	private String idUsuario;
-	private String TipoCuenta;
+	private TipoCuenta  TipoCuenta;
 	private String Fecha;
 	private String saldo;
 	private int activo;
-	
-	
 	
 	public Cuenta() {
 		super();
@@ -18,13 +15,13 @@ public class Cuenta {
 		CBU = "";
 		idUsuario = "";
 		Fecha="";
-		TipoCuenta = "";
+		TipoCuenta = new TipoCuenta();
 		this.saldo = "10000";
 		this.activo = 1;
 	}
 	
 
-	public Cuenta(String N_Cuenta, String cBU,String idusuario , String tipoCuenta, String fecha, String saldo, boolean activo) {
+	public Cuenta(String N_Cuenta, String cBU,String idusuario , TipoCuenta  tipoCuenta, String fecha, String saldo, boolean activo) {
 		super();
 		CBU = cBU;
 		idUsuario = idusuario;
@@ -67,10 +64,10 @@ public class Cuenta {
 	public void setCBU(String cBU) {
 		CBU = cBU;
 	}
-	public String getTipoCuenta() {
+	public TipoCuenta getTipoCuenta() {
 		return TipoCuenta;
 	}
-	public void setTipoCuenta(String tipoCuenta) {
+	public void setTipoCuenta(TipoCuenta  tipoCuenta) {
 		TipoCuenta = tipoCuenta;
 	}
 	public String getSaldo() {

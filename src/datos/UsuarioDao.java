@@ -14,5 +14,6 @@ public interface UsuarioDao {
 	public void modificarContraseña(int id,String new_pass);
 	public Usuario buscarUsuario(Usuario usuario);
 	public ArrayList<Cuenta> listarCuentas(int id);
-	
+	//public Usuario ActualizarUsuario(Usuario usuario);
+	//public ArrayList<Usuario> obtenerUsuariosPorNombre(String nombre, String apellido);
 }

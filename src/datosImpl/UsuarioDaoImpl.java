@@ -7,8 +7,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
 import entidad.Cuenta;
+import entidad.TipoCuenta;
 import entidad.Usuario;
 import datos.UsuarioDao;
 
@@ -16,7 +16,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user = "root";
-	private String pass = "root";
+	private String pass = "ROOT";
 	private String dbName = "bdbanco";
 	private Conexion cn;
 	
@@ -254,7 +254,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 			return usu;
 		}
 		
-		@Override
+		//@Override
 		public ArrayList<Cuenta> listarCuentas(int id) {
 			cn = new Conexion();
 			cn.Open();
@@ -270,11 +270,14 @@ public class UsuarioDaoImpl implements UsuarioDao {
 					 cu.setFecha(rs.getString("cuentas.F_Creacion"));
 					 cu.setIdUsuario(String.valueOf(rs.getInt("cuentas.IdUsuario")));
 					 cu.setCBU(rs.getString("cuentas.CBU"));
-					 cu.setTipoCuenta(String.valueOf(rs.getInt("cuentas.IdTipoCuenta")));
+					 TipoCuenta tc = new TipoCuenta();
+					 int idtipo = rs.getInt("IdTipoCuenta");
+					 tc.setIDTipoCuenta(idtipo);
 					 cu.setSaldo(String.valueOf(rs.getFloat("cuentas.Saldo")));
 					 cu.setActivo(rs.getInt("cuentas.Activo"));
 					 list.add(cu);
 					 //System.out.println(cu.toStringListaTr());
+					 
 				 }
 				 
 			 }

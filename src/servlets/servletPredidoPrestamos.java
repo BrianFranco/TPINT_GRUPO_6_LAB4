@@ -7,29 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.mysql.cj.Session;
-
-import datos.cuentaDao;
-import datosImpl.cuentaDaoImpl;
-import entidad.Cuenta;
 import entidad.Prestamo;
-import entidad.Transferencia;
 import negocio.PrestamosNeg;
 import negocio.UsuarioNeg;
-import negocio.cuentaNeg;
-import negocio.transferenciaNeg;
 import negocioImpl.PrestamosNegImpl;
 import negocioImpl.UsuarioNegImpl;
-import negocioImpl.cuentaNegImpl;
-import negocioImpl.transferenciaNegImpl;
-
 import javax.servlet.RequestDispatcher;
-
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Servlet implementation class servletPredidoPrestamos

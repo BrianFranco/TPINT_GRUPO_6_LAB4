@@ -1,12 +1,12 @@
 package negocioImpl;
+
 import negocio.UsuarioNeg;
-
 import java.util.ArrayList;
-
 import datos.UsuarioDao;
 import datosImpl.UsuarioDaoImpl;
-import entidad.Cuenta;
 import entidad.Usuario;
+import entidad.Cuenta;
+
 
 public class UsuarioNegImpl implements UsuarioNeg{
 

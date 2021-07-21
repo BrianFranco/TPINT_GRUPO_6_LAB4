@@ -11,6 +11,7 @@ public class Prestamo {
 	private float montoCuotas;
 	private String Fecha;
 	private int Estado;
+	private String alDia;
 	
 	public Prestamo() {
 		this.idCuenta = 1;
@@ -108,6 +109,18 @@ public class Prestamo {
 
 	public void setEstado(int estado) {
 		Estado = estado;
+	}
+	
+	public String isAlDia() {
+		return alDia;
+	}
+
+	public void setAlDia(boolean alDia) {
+		if (alDia) {
+			this.alDia = "SI";
+		} else {
+			this.alDia = "NO";
+		}
 	}
 
 	@Override

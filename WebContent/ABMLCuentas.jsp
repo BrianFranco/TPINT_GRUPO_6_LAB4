@@ -66,8 +66,8 @@
       		<div class="col-auto">
 			    <select class="form-select" aria-label="Default select example" name="cuentaOrigen">
 				  		<option value ="0" selected>Elegir cuenta</option>
-				  		<option value="1">Caja de Ahorro</option>
-						<option value="2">Cuenta Corriente</option>						
+				  		<option value="2">Caja de Ahorro</option>
+						<option value="1">Cuenta Corriente</option>						
 				</select>
 			</div>	
 			<div class="col-auto">
@@ -124,13 +124,13 @@
 									if(request.getAttribute("N_cuentaModificable")!=null && request.getAttribute("N_cuentaModificable").equals(cu.getN_Cuenta())){
 									%>
 									<td><input type="text" name="n_cuenta" value="<%=cu.getN_Cuenta()%>"/> </td>
-							    	<td> <input type="date" name="fecha" value="<%=cu.getFecha()%>"/> </td> 
-									<td><input type="text" name="id_usuario" value="<%=cu.getIdUsuario()%>"/> </td>   
+							    	<td><input type="date" name="fecha" value="<%=cu.getFecha()%>"/> </td> 
+									<td><input type="text" name="id_usuario" value="<%=cu.getIdUsuario()%>"/></td>									 									  								
 									<td> <select name="comboCuenta">
-											<%if(cu.getTipoCuenta().equals("1")){ %>
+											<%if(cu.getTipoCuenta().getIDTipoCuenta()==1){ %>
 												<option value="1" selected>Cuenta Corriente</option>
-												<option value="2">Caja de ahorro</option>
-											<% }else{%>
+												<option value="2">Caja de ahorro</option>												
+											<% }else{%>											    
 												<option value="1">Cuenta Corriente</option>
 												<option value="2" selected>Caja de ahorro</option>
 											<% }%>
@@ -154,7 +154,7 @@
 									<td><%=cu.getN_Cuenta() %><input type="hidden" name="n_cuenta" value="<%=cu.getN_Cuenta()%>"/> </td>
 							    	<td> <%=cu.getFecha() %> </td> 
 									<td> <%=cu.getIdUsuario() %> </td>   
-									<td> <%=cu.getTipoCuenta() %> </td>
+									<td> <%=cu.getTipoCuenta().getDescripcion() %> </td>
 									<td><%=cu.getCBU() %></td>
 									<td><%=cu.getSaldo() %></td>
 									<td><%=cu.getActivo() %></td>
