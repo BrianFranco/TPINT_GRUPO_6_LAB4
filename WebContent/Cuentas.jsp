@@ -37,9 +37,12 @@
 				<option selected>Seleccione una cuenta </option>
 				<%
 					for (Cuenta c : listaC) {
+						if(c.getActivo()==1){																			
 				%>
 				<option value="<%=c.getN_Cuenta()%>"><%=c.toStringListaTr()%></option>
+				
 				<%
+						}
 					}
 				%>
 			</select>
