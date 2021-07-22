@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import datos.MovimientoDao;
 import entidad.Movimiento;
+import entidad.TipoCuenta;
 import entidad.TipoMovimiento;
+import entidad.Cuenta;
 
 public class MovimientoDaoImpl implements MovimientoDao {
 	
@@ -73,19 +75,44 @@ public class MovimientoDaoImpl implements MovimientoDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Connection cn = null;
+		Connection cnx = null;
+		
+		
+		cn = new Conexion();
+		cn.Open();
+		
 		ArrayList<Movimiento> list = new ArrayList<Movimiento>();
 		 try
 		 {
-			 cn = DriverManager.getConnection(host + dbName, user, pass);
-			 PreparedStatement miSentencia = cn.prepareStatement("SELECT A.*,B.DESCRIPCION From movimientos A JOIN tipomovimiento B on A.IdTipoMovimiento = B.IdTipoMovimiento where idCuenta =  ?");
+			 cnx = DriverManager.getConnection(host + dbName, user, pass);
+			 PreparedStatement miSentencia = cnx.prepareStatement("SELECT A.*,B.DESCRIPCION From movimientos A JOIN tipomovimiento B on A.IdTipoMovimiento = B.IdTipoMovimiento where idCuenta =  ?");
 			 miSentencia.setInt(1, id);
 			 ResultSet rs = miSentencia.executeQuery();
 			 while(rs.next())
 			 {
 				 Movimiento m = new Movimiento();
 				 m.setIdMovimiento(rs.getInt("IdMovimientos"));
-				 m.setFecha(String.valueOf(rs.getInt("IdCuenta")));
+				 
+				 Cuenta cu = new Cuenta();
+				 TipoCuenta tc = new TipoCuenta();
+				 ResultSet rs2= cn.query("Select * From cuentas WHERE N_cuenta="+rs.getInt("IdCuenta"));
+				 while(rs2.next())
+				 {			 
+					 cu.setN_Cuenta(String.valueOf(rs2.getInt("cuentas.N_cuenta")));
+					 cu.setFecha(rs2.getString("cuentas.F_Creacion"));
+					 cu.setIdUsuario(String.valueOf(rs2.getInt("cuentas.IdUsuario")));
+					 cu.setCBU(rs2.getString("cuentas.CBU"));				 
+					 ResultSet rs3= cn.query("Select * From tipocuenta WHERE IdTipoCuenta =" + rs2.getInt("cuentas.IdTipoCuenta")  );
+					 while(rs3.next()) {					 
+						 tc.setIDTipoCuenta(rs3.getInt(1));
+						 tc.setDescripcion(rs3.getString(2));					  
+					 }		
+					 cu.setTipoCuenta(tc);
+					 cu.setSaldo(String.valueOf(rs2.getFloat("cuentas.Saldo")));
+					 cu.setActivo(rs2.getInt("cuentas.Activo"));
+					 m.setCuenta(cu);			
+				 }		
+				 m.setCuenta(cu);
 				 m.setConcepto(rs.getString("Descripcion"));				 
 				 String idTipoMovimiento = (String.valueOf(rs.getInt("IdTipoMovimiento")));
 				 TipoMovimiento tipo = new TipoMovimiento();
@@ -97,7 +124,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 				 m.toString();
 				 list.add(m);
 			 }
-			 cn.close();
+			 cnx.close();
 		 }
 		 catch(Exception e)
 		 {
@@ -105,7 +132,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		 }
 		 finally
 		 {
-			 
+			 cn.close();
 		 }
 		 return list;
 	}
@@ -214,14 +241,21 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		 {
 			 Movimiento mov = new Movimiento();
 			 
-			 mov.setIdCuenta(rs.getInt("movimientos.IdCuenta"));
-			 mov.setDescripcion(rs.getString("movimientos.Descripcion"));
-			 mov.setIdTipoMovimiento(rs.getInt("movimientos.IdTipoMovimiento"));
+			 Cuenta c = new Cuenta();
+			 c.setN_Cuenta(String.valueOf(rs.getInt("movimientos.IdCuenta")));
+			 
+			 mov.setCuenta(c);
+			 mov.setConcepto((rs.getString("movimientos.Descripcion")));
+			 
+			 TipoMovimiento tMov= new TipoMovimiento();
+			 tMov.setIDTipoMovimiento(rs.getInt("movimientos.IdTipoMovimiento"));
+			 mov.setTipoMovimiento(new TipoMovimiento(rs.getInt("movimientos.IdTipoMovimiento")));
 			 mov.setSaldo(rs.getFloat("movimientos.Saldo"));
 			 mov.setFechaMov(rs.getString("movimientos.F_Movimiento"));
 			 list.add(mov);
 			 //System.out.println(cu.toStringListaTr());
 		 }
+		 
 		 
 	 }
 	 catch(Exception e)

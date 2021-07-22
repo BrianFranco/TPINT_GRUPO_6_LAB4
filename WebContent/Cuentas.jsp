@@ -78,16 +78,16 @@
 					<form action="servletPagoPestamos" method="post">
 						<td><%= m.getCuenta().getN_Cuenta()%></td>
 						<td><%= m.getConcepto() %></td>
-						<% if(m.getIdMovimiento()==1){ %>
+						<% if(m.getTipoMovimiento().getIDTipoMovimiento().equals("1")){ %>
 							<td>Alta de Cuenta</td>
 						<% }%>
-						<% if(m.getIdMovimiento()==2){ %>
+						<% if(m.getTipoMovimiento().getIDTipoMovimiento().equals("2")){ %>
 							<td>Alta de prestamo</td>
 						<% }%>
-						<% if(m.getIdMovimiento()==3){ %>
+						<% if(m.getTipoMovimiento().getIDTipoMovimiento().equals("3")){ %>
 							<td>Pago de prestamo</td>
 						<% }%>
-						<% if(m.getIdMovimiento()==4){ %>
+						<% if(m.getTipoMovimiento().getIDTipoMovimiento().equals("4")){ %>
 							<td>Transferencia</td>
 						<% }%>
 						<td><%= m.getImporte()%></td>
