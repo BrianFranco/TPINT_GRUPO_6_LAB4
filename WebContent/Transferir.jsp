@@ -49,7 +49,6 @@
 			<input type="text" class="form-control" id="referencia" name="txtReferencia">
 		</div-->
 		<div class="col-12">
-			<a href="Saldo.jsp" class="btn btn-danger">Cancelar</a>
 			<input type="submit" name="btnAceptar" class="btn btn-primary" value="Aceptar"/>
 		</div>
 	</form>
