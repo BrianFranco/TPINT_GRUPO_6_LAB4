@@ -15,15 +15,16 @@
 	
 
 	<%
-		HttpSession s=request.getSession();
-		int id=(Integer)(s.getAttribute("Id"));
+		Usuario u = new Usuario();
+		if(session.getAttribute("Usuario") != null){
+			u = (Usuario) session.getAttribute("Usuario");
+		}
 	
 		List<Cuenta> listaC = new ArrayList<Cuenta>();
 		if (request.getAttribute("listaCuenta") != null) {
 			listaC = (List<Cuenta>) request.getAttribute("listaCuenta");
 		}
 		
-		s.setAttribute("listCuentasUser", new ArrayList<Cuenta>());
 	%>
 
 <main style="margin-left:20em;">
@@ -49,7 +50,7 @@
 			</select>
 		</div> 
 		<div>
-			<input type="hidden" name="idUser" value="<%= id %>">
+			<input type="hidden" name="idUser" value="<%= u.getIdUsuario() %>">
 		</div>
 		<div class="col-12">
 		    <label for="monto" class="form-label">Monto de prestamo</label>
@@ -73,15 +74,8 @@
 			  <option value="12">12</option>
 			</select>
 		  </div>
-		  <hr>
-		<hr>
 		  <div class="col-12">
-		  	<a href="Cuentas.jsp" class="btn btn-danger">Cancelar</a>
 		  	<input type="submit" value="Aceptar" name="btnAceptar" class="btn btn-primary"/>
 		  </div>
 		</form>
-				<%!int cant=0; %>
-				<!--Poner Funcion para calcular el pago -->
-				<br>
-		<h4>Los pagos seran <b><%=cant%></b> al mes.</h4>
 </main>
