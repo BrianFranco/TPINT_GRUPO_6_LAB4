@@ -16,7 +16,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user = "root";
-	private String pass = "root";
+	private String pass = "ROOT";
 	private String dbName = "bdbanco";
 	private Conexion cn;
 	
@@ -291,6 +291,106 @@ public class UsuarioDaoImpl implements UsuarioDao {
 			 }
 			 return list;
 		}
-
 		
+		@Override
+		public Usuario ActualizarUsuario(Usuario usuario) {
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			Connection cn = null;
+			try {
+				cn = DriverManager.getConnection(host + dbName, user, pass);
+				PreparedStatement miSentencia = cn.prepareStatement("UPDATE usuarios SET NombreUsuario = ? WHERE IdUsuario = ?");
+				miSentencia.setString(1, usuario.getNomUsuario()); //Cargo el ID recibido
+				miSentencia.setInt(2, usuario.getIdUsuario()); //Cargo el ID recibido
+				miSentencia.executeUpdate();
+				
+				PreparedStatement miSentencia2 = cn.prepareStatement("SELECT * FROM usuarios WHERE IdUsuario = ? ");
+				miSentencia2.setInt(1, usuario.getIdUsuario()); //Cargo el ID recibido
+				ResultSet resultado2 = miSentencia2.executeQuery();
+				resultado2.next();
+				
+				
+				usuario.setIdUsuario(resultado2.getInt(1));
+				usuario.setDni(resultado2.getInt(2));
+				usuario.setCuil(resultado2.getString(3));
+				usuario.setGenero(resultado2.getString(4));
+				usuario.setNacionalidad(resultado2.getString(5));
+			    usuario.setFechaNac(resultado2.getDate(6).toString());
+			    usuario.setDireccion(resultado2.getString(7));
+			    usuario.setLocalidad(resultado2.getString(8));
+			    usuario.setProvincia(resultado2.getString(9));
+			    usuario.setTelefono(resultado2.getString(10));
+			    usuario.setNomUsuario(resultado2.getString(11));
+			    usuario.setNombre(resultado2.getString(12));
+			    usuario.setApellido(resultado2.getString(13));
+			    usuario.setEmail(resultado2.getString(14));
+			    usuario.setContraseña(resultado2.getString(15));
+			    usuario.setActivo(resultado2.getInt(17));
+			    
+			    cn.close();
+			
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally{
+				
+			}
+			return usuario;
+		}
+		
+		public ArrayList<Usuario> obtenerUsuariosPorNombre(String nombre, String apellido) {
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			ArrayList<Usuario> lista = new ArrayList<Usuario>();
+			Connection conn = null;
+			try{
+				conn = DriverManager.getConnection(host + dbName, user, pass);
+				Statement st = conn.createStatement();
+				
+				PreparedStatement miSentencia = conn.prepareStatement("Select * FROM usuarios WHERE Nombre = LOWER(?) OR Apellido = LOWER(?)");
+				miSentencia.setString(1, nombre);
+				miSentencia.setString(2, apellido);
+				ResultSet rs = miSentencia.executeQuery();
+				while(rs.next()){
+					
+					Usuario usuarioRs = new Usuario();
+					usuarioRs.setIdUsuario(rs.getInt(1));
+					usuarioRs.setDni(rs.getInt(2));
+					usuarioRs.setCuil(rs.getString(3));
+					usuarioRs.setGenero(rs.getString(4));
+					usuarioRs.setNacionalidad(rs.getString(5));
+					usuarioRs.setFechaNac(rs.getDate(6).toString());
+					usuarioRs.setDireccion(rs.getString(7));
+					usuarioRs.setLocalidad(rs.getString(8));
+					usuarioRs.setProvincia(rs.getString(9));
+					usuarioRs.setTelefono(rs.getString(10));
+					usuarioRs.setNomUsuario(rs.getString(11));
+					usuarioRs.setNombre(rs.getString(12));
+					usuarioRs.setApellido(rs.getString(13));
+					usuarioRs.setEmail(rs.getString(14));
+					usuarioRs.setContraseña(rs.getString(15));
+					usuarioRs.setActivo(rs.getInt(17));
+					
+					
+					lista.add(usuarioRs);
+				}
+				conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+			
+			}
+			return lista;
+		}
 }
+		
+
