@@ -9,10 +9,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <jsp:include page="/Css/EstilosTransferir.css"></jsp:include>
-<%
-	HttpSession s=request.getSession();
-	int id=(Integer)(s.getAttribute("Id"));
-%>
 <title>Transferencias</title> 
 </head>
 
