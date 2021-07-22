@@ -9,6 +9,11 @@
 <jsp:include page="/Css/EstilosIniciarSesion.css"></jsp:include>
 <title>Inicio de sesión</title>
 </head>
+<%
+	if(session.getAttribute("Usuario") != null){
+		 session.removeAttribute("Usuario");
+	}
+%>
 <body>
 
 <div class="sidenav">
@@ -30,8 +35,7 @@
                      <input type="password" class="form-control" name="txtContraseña">
                   </div>
                   <div style="margin-top:10px;">
-	                  <input type="submit" name="inputIngresar" class="btn btn-black" value="Ingresar">
-	                  <a class="btn btn-primary" href="AñadirUsuario.jsp" role="button">Registrarse</a>
+	                  <input type="submit" name="inputIngresar" class="btn btn-black" value="Ingresar">	                  
                   </div>
                </form>
             </div>

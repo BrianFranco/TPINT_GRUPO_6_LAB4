@@ -18,7 +18,7 @@
 <main style="margin-left:20em;">
 <div
 	class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"></div>
-<h2>Usuarios</h2>
+<h2>Reporte de Usuarios</h2>
 
 <div style="margin-top: 2em;">
 
@@ -87,7 +87,7 @@
 			}
 		%>
 	</table>
-
+		<h3>Cuentas del Usuario</h3>
 	<table class="table table-striped table-sm">
 		<thead>
 			<tr>

@@ -40,7 +40,7 @@
 	      	<span data-feather="user-check"></span>
 	      	<%= u.getNombre() %>
 	      </a> 
-	      <a class="nav-link px-3" href="#">
+	      <a class="nav-link px-3" href="IniciarSesion.jsp">
 	      	<span data-feather="user-x"></span>
 	      	Cerrar Sesión
 	      </a>
@@ -82,27 +82,21 @@
           <li class="nav-item">
             <a class="nav-link" href="ListarUsuarios.jsp">
               <span data-feather="file-text"></span>
-              Lista de Usuarios
+              Reporte de Usuarios
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="ReportePrestamos.jsp">
               <span data-feather="file-text"></span>
               Reporte de Prestamos
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="ReporteMovimientos.jsp">
               <span data-feather="file-text"></span>
               Movimientos por Concepto
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Usuarios Morosos
-            </a>
-          </li>
+          </li>          
         </ul>
 
         

@@ -16,7 +16,7 @@ public class cuentaDaoImpl implements cuentaDao{
 	
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user = "root";
-	private String pass = "root";
+	private String pass = "ROOT";
 	private String dbName = "bdbanco";
 	
 	private Conexion cn;
@@ -121,16 +121,11 @@ public class cuentaDaoImpl implements cuentaDao{
 			 while(rs.next())
 			 {								 				 										 
 				 Cuenta cu = new Cuenta();
-				 ResultSet rs2= cn.query("Select * From tipocuenta WHERE IdTipoCuenta =" + rs.getInt("cuentas.IdTipoCuenta"));
-				 while(rs2.next()) {					 
-					 cu.setN_Cuenta(String.valueOf(rs2.getInt("N_Cuenta")));										 
-				 }
+				 cu.setN_Cuenta(String.valueOf(rs.getInt("N_Cuenta")));
 				 cu.setFecha(rs.getString("F_Creacion"));
 				 cu.setIdUsuario(String.valueOf(rs.getInt("IdUsuario")));
-				 cu.setCBU(rs.getString("CBU"));			
-				 TipoCuenta tc = new TipoCuenta();
-				 int idtipo = rs.getInt("IdTipoCuenta");
-				 cu.getTipoCuenta().setIDTipoCuenta(idtipo);
+				 cu.setCBU(rs.getString("CBU"));							
+				 cu.getTipoCuenta().setIDTipoCuenta(rs.getInt("IdTipoCuenta"));
 				 cu.getTipoCuenta().setDescripcion(rs.getString("DESCRIPCION"));
 				 cu.setSaldo(String.valueOf(rs.getFloat("Saldo")));
 				 cu.setActivo(rs.getInt("Activo"));
@@ -256,7 +251,7 @@ public class cuentaDaoImpl implements cuentaDao{
 		 try
 		 {
 			 cn = DriverManager.getConnection(host + dbName, user, pass);
-			 PreparedStatement miSentencia = cn.prepareStatement("SELECT A.*,MAX(CASE WHEN MONTH(B.FechaMovimiento) = MONTH(NOW())  THEN true ELSE false END) 'AlDia' FROM prestamos A JOIN moviminetos B ON B.IdCuenta = A.IdCuenta WHERE A.IdCuenta = ? AND (B.IdTipoMovimiento = 3 OR B.IdTipoMovimiento = 2)");
+			 PreparedStatement miSentencia = cn.prepareStatement("SELECT A.*,MAX(CASE WHEN MONTH(B.F_Movimiento) = MONTH(NOW())  THEN true ELSE false END) 'AlDia' FROM prestamos A JOIN movimientos B ON B.IdCuenta = A.IdCuenta WHERE A.IdCuenta = ? AND (B.IdTipoMovimiento = 3 OR B.IdTipoMovimiento = 2)");
 			 miSentencia.setInt(1, Integer.parseInt(id));
 			 ResultSet rs = miSentencia.executeQuery();
 			 while(rs.next())
@@ -266,8 +261,8 @@ public class cuentaDaoImpl implements cuentaDao{
 				 pr.setIdCuenta(rs.getInt("IdCuenta"));
 				 pr.setMontoSolicitado(rs.getFloat("MontoSolicitado"));
 				 pr.setMontoFinal(rs.getFloat("MontoTotalPagar"));
-				 pr.setMontoCuotas(rs.getFloat("Meses_Pre"));
-				 pr.setRestCuotas(rs.getInt("Cuotas"));
+				 pr.setMontoCuotas(rs.getFloat("ValorCuotas"));
+				 pr.setRestCuotas(rs.getInt("CuotasRestantes"));
 				 pr.setFecha(rs.getString("FechaInicio"));
 				 pr.setAlDia(rs.getBoolean("AlDia"));
 				 

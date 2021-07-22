@@ -16,7 +16,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 	
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user = "root";
-	private String pass = "root";
+	private String pass = "ROOT";
 	private String dbName = "bdbanco";
 	private Conexion cn;
 
@@ -169,12 +169,12 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		 try
 		 {
 			 cn = DriverManager.getConnection(host + dbName, user, pass);
-			 PreparedStatement miSentencia = cn.prepareStatement("Select FechaMovimiento,YEAR(FechaMovimiento),MONTH(FechaMovimiento),Descripcion,SUM(ABS(Saldo)) Saldo From moviminetos GROUP BY YEAR(FechaMovimiento),MONTH(FechaMovimiento),Descripcion ORDER BY FechaMovimiento DESC");
+			 PreparedStatement miSentencia = cn.prepareStatement("Select F_Movimiento,YEAR(F_Movimiento),MONTH(F_Movimiento),Descripcion,SUM(ABS(Saldo)) Saldo From movimientos GROUP BY YEAR(F_Movimiento),MONTH(F_Movimiento),Descripcion ORDER BY F_Movimiento DESC");
 			 ResultSet rs = miSentencia.executeQuery();
 			 while(rs.next())
 			 {
 				 Movimiento m = new Movimiento();
-				 m.setFecha(String.valueOf(rs.getString("FechaMovimiento")));
+				 m.setFecha(String.valueOf(rs.getString("F_Movimiento")));
 				 m.setConcepto(rs.getString("Descripcion"));
 				 m.setImporte(rs.getDouble("Saldo"));
 				 list.add(m);
@@ -205,14 +205,14 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		 try
 		 {
 			 cn = DriverManager.getConnection(host + dbName, user, pass);
-			 PreparedStatement miSentencia = cn.prepareStatement("Select FechaMovimiento,YEAR(FechaMovimiento),MONTH(FechaMovimiento),Descripcion,SUM(ABS(Saldo)) Saldo From moviminetos GROUP BY YEAR(FechaMovimiento),MONTH(FechaMovimiento),Descripcion HAVING FechaMovimiento BETWEEN ? AND ? ORDER BY FechaMovimiento DESC");
+			 PreparedStatement miSentencia = cn.prepareStatement("Select F_Movimiento,YEAR(F_Movimiento),MONTH(F_Movimiento),Descripcion,SUM(ABS(Saldo)) Saldo From movimientos GROUP BY YEAR(F_Movimiento),MONTH(F_Movimiento),Descripcion HAVING F_Movimiento BETWEEN ? AND ? ORDER BY F_Movimiento DESC");
 			 miSentencia.setString(1, desde + "-00");
 			 miSentencia.setString(2, hasta + "-00");
 			 ResultSet rs = miSentencia.executeQuery();
 			 while(rs.next())
 			 {
 				 Movimiento m = new Movimiento();
-				 m.setFecha(String.valueOf(rs.getString("FechaMovimiento")));
+				 m.setFecha(String.valueOf(rs.getString("F_Movimiento")));
 				 m.setConcepto(rs.getString("Descripcion"));
 				 m.setImporte(rs.getDouble("Saldo"));
 				 list.add(m);

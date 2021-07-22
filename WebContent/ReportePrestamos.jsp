@@ -15,7 +15,7 @@
 <main> <main style="margin-left:20em;">
 <div
 	class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"></div>
-<h2>Cuentas</h2>
+<h2>Reporte de Prestamos</h2>
 <%
 	ArrayList<Cuenta> listaCuentas = null;
 	ArrayList<Prestamo> listaPrestamos = null;

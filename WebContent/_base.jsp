@@ -13,16 +13,16 @@
 
 <%
 Usuario u = new Usuario();
-if(session.getAttribute("Usuario") != null){
-	u = (Usuario) session.getAttribute("Usuario");
-	if(u.getIdRol()==2){
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/ABMLClientes.jsp");
-		dispatcher.forward(request, response);
-	}
-}else{
-	RequestDispatcher dispatcher = request.getRequestDispatcher("/IniciarSesion.jsp");
-	dispatcher.forward(request, response);
-}
+ if(session.getAttribute("Usuario") != null){
+ 	u = (Usuario) session.getAttribute("Usuario");
+ 	if(u.getIdRol()==2){
+ 		RequestDispatcher dispatcher = request.getRequestDispatcher("/ABMLClientes.jsp");
+ 		dispatcher.forward(request, response);
+ 	}
+ }else{
+ 	RequestDispatcher dispatcher = request.getRequestDispatcher("/IniciarSesion.jsp");
+ 	dispatcher.forward(request, response);
+ }
 %>
 
 </head>
@@ -37,7 +37,7 @@ if(session.getAttribute("Usuario") != null){
 	      	<span data-feather="user-check"></span>
 	      	<%= u.getNombre() %>
 	      </a> 
-	      <a class="nav-link px-3" href="#">
+	      <a class="nav-link px-3" href="IniciarSesion.jsp">
 	      	<span data-feather="user-x"></span>
 	      	Cerrar Sesión
 	      </a>
