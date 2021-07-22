@@ -1,4 +1,8 @@
 <jsp:include page="_base.jsp" />
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entidad.*"%>
+<%@ page session="true" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <!DOCTYPE HTML>
@@ -7,89 +11,96 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Cuentas</title>
 </head>
-<main style="margin-left:20em;">
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"></div>
-	<h2>Cuentas</h2>
-	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"></div>
-      
-      <form class="row mb-3">
-      		<div class="col-auto">
-      			<label class="form-label" for="cuentaOrigen">Seleccionar cuenta: </label>
-      		</div>
-      		<div class="col-auto">
-			    <select class="form-select" aria-label="Default select example" name="cuentaOrigen">
-				  		<option selected></option>
-				  		<option value="1">Cta:Nro. 0001 - Disponible: 14000$</option>
-						<option value="2">Cta:Nro. 0002 - Disponible: 0000$</option>
-						<option value="3">Cta:Nro. 0003 - Disponible: 0000$</option>
-				</select>
-			</div>
-			<div class="col-auto">
-				<input type="submit" name="btnAceptar" class="btn btn-primary" value="Seleccionar cuenta"/>
-			</div>
+
+	<%
+		Usuario u = new Usuario();
+		if(session.getAttribute("Usuario") != null){
+			u = (Usuario) session.getAttribute("Usuario");
+		}
+	
+	%>
+	
+<div style="margin-left:20em;">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"><h2>Cuentas</h2></div>
+    <% if (request.getParameter("Param") != null){
+    
+    	List<Cuenta> listaC = new ArrayList<Cuenta>();
+		if (request.getAttribute("listaCuenta") != null) {
+			listaC = (List<Cuenta>) request.getAttribute("listaCuenta");
+		}
+    
+    %>
+      <form action="servletCuentasUser" method="post">
+      	<div class="col-5">
+			<label class="form-label" for="cuentaOrigen">Seleccionar cuenta: </label>
+			<select class="form-select" aria-label="Default select example" name="cuentaSeleccionada">
+				<option selected>Seleccione una cuenta </option>
+				<%
+					for (Cuenta c : listaC) {
+				%>
+				<option value="<%=c.getN_Cuenta()%>"><%=c.toStringListaTr()%></option>
+				<%
+					}
+				%>
+			</select>
+			<input type="hidden" name="idUsuario" value="<%= u.getIdUsuario() %>" />
+		</div>
+		<br>
+		<div class="col-1">
+			<input type="submit" name="btnContinuar" class="btn btn-success" value="Continuar"/>
+		</div>
       </form>
+      <% }else{ 
       
+     	List<Movimiento> listaMov = new ArrayList<Movimiento>();
+		if (request.getAttribute("listaMov") != null) {
+		listaMov = (List<Movimiento>) request.getAttribute("listaMov");
+		}
       
-      
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">Tipo de Cuenta</th>
-              <th scope="col">Moneda</th>
-              <th scope="col">Nro de Cuenta</th>
-              <th scope="col">Saldo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Caja de Ahorro</td>
-              <td>$</td>
-              <td>0001</td>
-              <td>14000</td>
-            </tr>
-          </tbody>
-        </table>
-        
-       <h4>Ultimos Movimientos</h4>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">Fecha</th>
-              <th scope="col">Tipo de Movimiento</th>
-              <th scope="col">Detalle</th>
-              <th scope="col">Saldo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>25/06/2021</td>
-              <td>Pago Prestasmo</td>
-              <td>Pago cuota de prestamo otorgado</td>
-              <td>-1000</td>
-            </tr>
-            <tr>
-              <td>22/06/2021</td>
-              <td>Transferencia</td>
-              <td>Transferencia a cuenta 0002</td>
-              <td>-4000</td>
-            </tr>
-            <tr>
-              <td>15/06/2021</td>
-              <td>Alta Prestamo</td>
-              <td>Prestamo otorgado</td>
-              <td>+9000</td>
-            </tr>
-            <tr>
-              <td>14/06/2021</td>
-              <td>Alta de cuenta</td>
-              <td>Nuevo Usuario</td>
-              <td>+10000</td>
-            </tr>
-          </tbody>
-        </table>
-      <h4>Saldo actual: 14000</h4>  
-      </div>
-      </div>
-</main>
+      %> 
+      <div class="col-8">
+		<table class="table table-striped table-hover">
+				<thead class="table-dark">
+					<tr>
+						<th scope="col">Cuenta</th>
+						<th scope="col">Descripcion</th>
+						<th scope="col">Tipo de Movimiento</th>
+						<th scope="col">Monto</th>
+						<th scope="col">Fecha</th>
+					</tr>
+				</thead>
+				<tbody>
+				<%
+				for (Movimiento m : listaMov) {
+					
+				%>
+				<tr>
+					<form action="servletPagoPestamos" method="post">
+						<td><%= m.getCuenta().getN_Cuenta()%></td>
+						<td><%= m.getConcepto() %></td>
+						<% if(m.getIdMovimiento()==1){ %>
+							<td>Alta de Cuenta</td>
+						<% }%>
+						<% if(m.getIdMovimiento()==2){ %>
+							<td>Alta de prestamo</td>
+						<% }%>
+						<% if(m.getIdMovimiento()==3){ %>
+							<td>Pago de prestamo</td>
+						<% }%>
+						<% if(m.getIdMovimiento()==4){ %>
+							<td>Transferencia</td>
+						<% }%>
+						<td><%= m.getImporte()%></td>
+						<td><%= m.getFecha()%></td>
+					</form>
+				</tr>
+				<%
+				}
+				%>
+		</tbody>
+		</table>
+		</div>
+		<!-- input type="input" class="btn btn-success" name="btnVolver" value="Volver"-->
+		<a class="btn btn-info" href="servletCuentasUser?Param=list&id=<%=u.getIdUsuario()%>">Elegir otra cuenta</a>
+      <% } %>
+</div>

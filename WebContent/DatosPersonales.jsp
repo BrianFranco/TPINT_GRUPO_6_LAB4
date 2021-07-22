@@ -29,7 +29,7 @@
 		  </div>
 		  <div class="col-md-3">
 		    <label for="fechaNac" class="form-label">Fecha de nacimiento</label>
-		    <input type="text" disabled="disabled" class="form-control" id="fechaNac" value="1999/01/01">
+		    <input type="text" disabled="disabled" class="form-control" id="fechaNac" value=<%=u.getFechaNac() %>>
 		  </div>
 		  <div class="col-md-3">
 		    <label for="dni" class="form-label">DNI</label>
@@ -37,35 +37,35 @@
 		  </div>
 		  <div class="col-md-3">
 		    <label for="cuil" class="form-label">CUIL</label>
-		    <input type="text" class="form-control" id="cuil" disabled="disabled" value="20-3324445-7">
+		    <input type="text" class="form-control" id="cuil" disabled="disabled" value=<%=u.getCuil() %>>
 		  </div>
 		  <div class="col-md-3">
 		    <label for="genero" class="form-label">Genero</label>
-		    <input type="text" class="form-control" id="genero" disabled="disabled" value="Masculino">
+		    <input type="text" class="form-control" id="genero" disabled="disabled" value=<%=u.getGenero() %>>
 		  </div>
 		  <div class="col-md-3">
 		    <label for="nacionalidad" class="form-label">Nacionalidad</label>
-		    <input type="text" class="form-control" id="nacionalidad" disabled="disabled" value="Argentino">
+		    <input type="text" class="form-control" id="nacionalidad" disabled="disabled" value=<%=u.getNacionalidad() %>>
 		  </div>
 		  <div class="col-md-3">
 		    <label for="direccion" class="form-label">Direccion</label>
-		    <input type="text" class="form-control" id="direccion" disabled="disabled" value="742 de Evergreen Terrace">
+		    <input type="text" class="form-control" id="direccion" disabled="disabled" value=<%=u.getDireccion() %>>
 		  </div>
 		  <div class="col-md-3">
 		    <label for="localidad" class="form-label">Localidad</label>
-		    <input type="text" class="form-control" id="localidad" disabled="disabled" value="Pacheco">
+		    <input type="text" class="form-control" id="localidad" disabled="disabled" value=<%=u.getLocalidad() %>>
 		  </div>
 		  <div class="col-md-3">
 		    <label for="provincia" class="form-label">Provincia</label>
-		    <input type="text" class="form-control" id="provincia" disabled="disabled" value="Buenos Aires">
+		    <input type="text" class="form-control" id="provincia" disabled="disabled" value=<%=u.getProvincia() %>>
 		  </div>
 		  <div class="col-md-3">
 		    <label for="correo" class="form-label">Correo</label>
-		    <input type="text" class="form-control" id="correo" disabled="disabled" value="ikeegan@gmail.com">
+		    <input type="text" class="form-control" id="correo" disabled="disabled" value=<%=u.getEmail() %>>
 		  </div>
 		  <div class="col-md-3">
 		    <label for="telefono" class="form-label">Telefono</label>
-		    <input type="text" class="form-control" id="telefono" disabled="disabled" value="1123459087">
+		    <input type="text" class="form-control" id="telefono" disabled="disabled" value=<%=u.getTelefono() %>>
 		  </div>
 		  <div class="col-md-3">
 		    <label for="usuario" class="form-label">Nombre de Usuario</label>

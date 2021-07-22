@@ -8,6 +8,7 @@ import datosImpl.prestamosDaoImpl;
 import datosImpl.transferenciaDaoImpl;
 import entidad.Cuenta;
 import entidad.Prestamo;
+import entidad.PrestamoP;
 import entidad.Transferencia;
 import negocio.PrestamosNeg;
 
@@ -22,6 +23,10 @@ public class PrestamosNegImpl implements PrestamosNeg {
 	public ArrayList<Prestamo> listarPrestamos(int Id) {
 		return (ArrayList<Prestamo>) prestDao.listarPrestamos(Id);
 		
+	}
+	
+	public boolean insertarP(PrestamoP PrestamoP) {
+		return prestDao.insertarP(PrestamoP);
 	}
 	
 }

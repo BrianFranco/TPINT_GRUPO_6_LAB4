@@ -12,4 +12,5 @@ public interface MovimientoDao {
 	public boolean insertar(Movimiento movimiento);
 	public boolean editar(Movimiento movimiento);
 	public boolean borrar(int id);
+	//public ArrayList<Movimiento> listarMovimientos(int id);
 }

@@ -48,7 +48,16 @@ public class servletCuenta extends HttpServlet {
 			Cuenta x = new Cuenta();
 			x.setCBU(request.getParameter("nroCBU").toString());
 			x.setIdUsuario(request.getParameter("idUsuario").toString());
+			
 			TipoCuenta tc = new TipoCuenta();
+			tc.setIDTipoCuenta(Integer.parseInt(request.getParameter("comboCuenta").toString()));
+			if(tc.getIDTipoCuenta()==1){
+				tc.setDescripcion("Cuenta Corriente");							
+			}else {
+				tc.setDescripcion("Caja de Ahorro");
+			}		
+			
+			x.setTipoCuenta(tc);
 			tc.setIDTipoCuenta(Integer.parseInt(request.getParameter("comboCuenta").toString()));
 			x.setSaldo("10000");
 			x.setFecha(today.toString());
@@ -60,6 +69,12 @@ public class servletCuenta extends HttpServlet {
 			}else {
 				request.setAttribute("msjGenerar", "Error, no se pudo crear la nueva cuenta.Revise los datos ingresados.");
 			}
+			
+			
+			ArrayList<Cuenta> lista = negCuenta.listarArticulos();
+			
+			request.getSession().setAttribute("listaC", lista);
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/ABMLCuentas.jsp");
 			dispatcher.forward(request, response);
 		}

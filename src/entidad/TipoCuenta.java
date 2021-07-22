@@ -1,6 +1,5 @@
 package entidad;
 
-import org.apache.tomcat.util.buf.StringCache;
 /*
 public class TipoCuenta {
 	public String getIDTipoCuenta() {

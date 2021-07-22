@@ -20,7 +20,8 @@ public class MovimientoDaoImpl implements MovimientoDao {
 	public MovimientoDaoImpl() {
 		
 	}
-
+	
+	
 	@Override
 	public ArrayList<Movimiento> obtenerTodos() {
 
@@ -77,7 +78,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		 try
 		 {
 			 cn = DriverManager.getConnection(host + dbName, user, pass);
-			 PreparedStatement miSentencia = cn.prepareStatement("SELECT A.*,B.DESCRIPCION From moviminetos A JOIN tipomovimiento B on A.IdTipoMovimiento = B.IdTipoMovimiento where idCuenta =  ?");
+			 PreparedStatement miSentencia = cn.prepareStatement("SELECT A.*,B.DESCRIPCION From movimientos A JOIN tipomovimiento B on A.IdTipoMovimiento = B.IdTipoMovimiento where idCuenta =  ?");
 			 miSentencia.setInt(1, id);
 			 ResultSet rs = miSentencia.executeQuery();
 			 while(rs.next())
@@ -92,7 +93,8 @@ public class MovimientoDaoImpl implements MovimientoDao {
 				 tipo.setDescripcion(rs.getString("DESCRIPCION"));
 				 m.setTipoMovimiento(tipo);
 				 m.setImporte(rs.getDouble("Saldo"));
-				 m.setFecha(rs.getString("FechaMovimiento"));
+				 m.setFecha(rs.getString("F_Movimiento"));
+				 m.toString();
 				 list.add(m);
 			 }
 			 cn.close();
@@ -199,5 +201,38 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		 }
 		 return list;
 	}
+	
+	
+	/*public ArrayList<Movimiento> listarMovimientos(int id) {
+	cn = new Conexion();
+	cn.Open();
+	 ArrayList<Movimiento> list = new ArrayList<Movimiento>();
+	 try
+	 {
+		 ResultSet rs= cn.query("Select * From movimientos Where IdCuenta = "+id);
+		 while(rs.next())
+		 {
+			 Movimiento mov = new Movimiento();
+			 
+			 mov.setIdCuenta(rs.getInt("movimientos.IdCuenta"));
+			 mov.setDescripcion(rs.getString("movimientos.Descripcion"));
+			 mov.setIdTipoMovimiento(rs.getInt("movimientos.IdTipoMovimiento"));
+			 mov.setSaldo(rs.getFloat("movimientos.Saldo"));
+			 mov.setFechaMov(rs.getString("movimientos.F_Movimiento"));
+			 list.add(mov);
+			 //System.out.println(cu.toStringListaTr());
+		 }
+		 
+	 }
+	 catch(Exception e)
+	 {
+		 e.printStackTrace();
+	 }
+	 finally
+	 {
+		 cn.close();
+	 }
+	 return list;
+}*/
 
 }

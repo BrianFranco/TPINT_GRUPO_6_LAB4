@@ -46,7 +46,8 @@
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
            <li class="nav-item">
-	           <a class="nav-link" aria-current="page" href="Cuentas.jsp">
+	           <a class="nav-link" aria-current="page" href="servletCuentasUser?Param=list&id=<%=u.getIdUsuario()%>
+">
 	            <span data-feather="home"></span>
 	             Cuentas
 	           </a>

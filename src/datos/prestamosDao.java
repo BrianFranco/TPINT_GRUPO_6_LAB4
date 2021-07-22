@@ -2,14 +2,17 @@ package datos;
 
 import java.util.ArrayList;
 
-import entidad.Cuenta;
+
 import entidad.Prestamo;
-import entidad.Transferencia;
+import entidad.PrestamoP;
+
 
 public interface prestamosDao {
 
 	public boolean insertar(Prestamo prestamo);
 
 	public ArrayList<Prestamo> listarPrestamos(int id);
+	
+	public boolean insertarP(PrestamoP prestamoP);
 	
 }

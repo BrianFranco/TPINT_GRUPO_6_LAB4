@@ -7,9 +7,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import datos.prestamosDao;
-import entidad.Cuenta;
 import entidad.Prestamo;
-import entidad.Transferencia;
+import entidad.PrestamoP;
 
 public class prestamosDaoImpl implements prestamosDao{
 	
@@ -91,5 +90,66 @@ public class prestamosDaoImpl implements prestamosDao{
 		return list;
 		
 	}
+
+	public boolean insertarP(PrestamoP prestamoP) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	
+		Connection cn = null;
+		Connection cn1 = null;
+		Connection cn2 = null;
+		Connection cn3 = null;
+		try
+		{
+			cn = DriverManager.getConnection(host+dbName, user,pass);
+			
+			for(int i = 1; i <= prestamoP.getCantCuotas() ; i++) {
+				CallableStatement proc = cn.prepareCall("CALL SP_AgregarMovimiento(?,?,?,?,?)");
+				proc.setInt(1,prestamoP.getCuentaUsar());
+				proc.setString(2,"Pago de prestamo Id:" + prestamoP.getIdCuenta());
+				proc.setInt(3,3);
+				proc.setFloat(4,-prestamoP.getMontoCuotas());
+				proc.setString(5,prestamoP.getFecha());
+				proc.execute();
+				System.out.println(prestamoP.toString());
+				
+				cn1 = DriverManager.getConnection(host+dbName, user,pass);
+				CallableStatement proc1 = cn1.prepareCall("CALL SP_ActualizarMontoCuenta(?,?)");
+				proc1.setInt(1,prestamoP.getCuentaUsar());
+				proc1.setFloat(2, -prestamoP.getMontoCuotas());
+				proc1.execute();
+			}
+			
+			cn2 = DriverManager.getConnection(host+dbName, user,pass);
+			CallableStatement proc2 = cn2.prepareCall("CALL SP_ActualizarCantidadCuotas(?,?)");
+			proc2.setInt(1,prestamoP.getIdCuenta());
+			proc2.setFloat(2,prestamoP.getCantCuotas());
+			proc2.execute();
+			
+			cn3 = DriverManager.getConnection(host+dbName, user,pass);
+			CallableStatement proc3 = cn3.prepareCall("CALL SP_AgregarPrestamoPagado(?,?,?,?,?,?,?)");
+			proc3.setInt(1,prestamoP.getIdUsuario());
+			proc3.setInt(2,prestamoP.getCuentaUsar());
+			proc3.setInt(3,prestamoP.getIdCuenta());
+			proc3.setInt(4,prestamoP.getCantCuotas());
+			proc3.setFloat(5,prestamoP.getMontoCuotas());
+			proc3.setString(6,prestamoP.getFecha());
+			proc3.setFloat(7,prestamoP.getMontoPago());
+			proc3.execute();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+		
+	}
+
 	
 }

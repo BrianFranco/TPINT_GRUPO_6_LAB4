@@ -1,6 +1,7 @@
 package datosImpl;
 
 import entidad.Transferencia;
+import java.time.LocalDate;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -14,6 +15,10 @@ public class transferenciaDaoImpl implements transferenciaDao{
 	private String user = "root";
 	private String pass = "root";
 	private String dbName = "bdbanco";
+	
+	
+	LocalDate today = LocalDate.now();
+
 	
 	public boolean insertar(Transferencia transferencia) {
 		try {
@@ -53,21 +58,28 @@ public class transferenciaDaoImpl implements transferenciaDao{
 			proc1.setFloat(2, -transferencia.getMonto());
 			proc1.execute();
 			
+			
+			
+			
+			
 			cn2 = DriverManager.getConnection(host+dbName, user,pass);
-			CallableStatement proc2 = cn2.prepareCall("CALL SP_AgregarMovimiento(?,?,?,?)");
+			CallableStatement proc2 = cn2.prepareCall("CALL SP_AgregarMovimiento(?,?,?,?,?)");
 			proc2.setInt(1,transferencia.getIdCuentaOrigen());
 			proc2.setString(2, "Extraccion");
 			proc2.setInt(3, 4);
 			proc2.setFloat(4, -transferencia.getMonto());
+			proc2.setString(5,today.toString());
 			proc2.execute();
-			
+						
 			cn3 = DriverManager.getConnection(host+dbName, user,pass);
-			CallableStatement proc3 = cn3.prepareCall("CALL SP_AgregarMovimiento(?,?,?,?)");
+			CallableStatement proc3 = cn3.prepareCall("CALL SP_AgregarMovimiento(?,?,?,?,?)");
 			proc3.setInt(1,transferencia.getIdCuentaDestino());
 			proc3.setString(2, "Deposito");
 			proc3.setInt(3, 4);
 			proc3.setFloat(4, transferencia.getMonto());
+			proc3.setString(5,today.toString());
 			proc3.execute();
+
 			
 		}
 		catch(Exception e)
