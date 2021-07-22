@@ -85,8 +85,8 @@ public class servletPagoPestamos extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("btnContinuar")!=null) {
 			
-			cuentaAUsar = Integer.parseInt(request.getParameter("idUsuario"));
-			idUsuarioCobro = Integer.parseInt(request.getParameter("cuentaOrigen"));
+			cuentaAUsar = Integer.parseInt(request.getParameter("cuentaOrigen"));
+			idUsuarioCobro = Integer.parseInt(request.getParameter("idUsuario"));
 			
 			ArrayList<Prestamo> lista = negPrest.listarPrestamos(Integer.parseInt(request.getParameter("idUsuario")));
 			/*for (Prestamo p : lista) {
