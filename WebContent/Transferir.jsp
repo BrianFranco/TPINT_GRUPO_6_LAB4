@@ -9,10 +9,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <jsp:include page="/Css/EstilosTransferir.css"></jsp:include>
-<%
-	HttpSession s=request.getSession();
-	int id=(Integer)(s.getAttribute("Id"));
-%>
 <title>Transferencias</title> 
 </head>
 
@@ -53,7 +49,6 @@
 			<input type="text" class="form-control" id="referencia" name="txtReferencia">
 		</div-->
 		<div class="col-12">
-			<a href="Saldo.jsp" class="btn btn-danger">Cancelar</a>
 			<input type="submit" name="btnAceptar" class="btn btn-primary" value="Aceptar"/>
 		</div>
 	</form>
