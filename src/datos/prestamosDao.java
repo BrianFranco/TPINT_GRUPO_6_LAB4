@@ -15,4 +15,7 @@ public interface prestamosDao {
 	
 	public boolean insertarP(PrestamoP prestamoP);
 	
+	public ArrayList<Prestamo> listaPrestamos(String filtro);
+	public boolean autorizarPrestamo(String idPrestamo,String fecha,int estado);
+	
 }

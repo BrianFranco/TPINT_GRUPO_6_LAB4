@@ -6,6 +6,7 @@ import datos.cuentaDao;
 import datosImpl.cuentaDaoImpl;
 import entidad.Cuenta;
 import negocio.cuentaNeg;
+import entidad.Movimientos;
 
 public class cuentaNegImpl implements cuentaNeg{
 
@@ -53,6 +54,12 @@ public class cuentaNegImpl implements cuentaNeg{
 		return artDao.borrar(id);
 	}
 
+	
+	@Override
+	public boolean sumarSaldo(Movimientos mov) {
+		// TODO Auto-generated method stub
+		return artDao.sumarSaldo(mov);
+	}
 	
 	
 }

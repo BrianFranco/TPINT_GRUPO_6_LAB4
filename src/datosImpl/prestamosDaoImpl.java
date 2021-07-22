@@ -14,7 +14,7 @@ public class prestamosDaoImpl implements prestamosDao{
 	
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user = "root";
-	private String pass = "ROOT";
+	private String pass = "root";
 	private String dbName = "bdbanco";
 	private Conexion cn;
 	
@@ -149,6 +149,71 @@ public class prestamosDaoImpl implements prestamosDao{
 		}
 		return true;
 		
+	}
+	
+	
+	@Override
+	public boolean autorizarPrestamo(String idPrestamo,String fecha,int estado) {
+		
+		boolean r=true;
+
+		cn = new Conexion();
+		cn.Open();	
+
+		String query = "UPDATE prestamos SET Estado='"+estado+"', FechaInicio='"+fecha+"' WHERE IdPrestamos='"+idPrestamo+"'";
+		try
+		 {
+			r=cn.execute(query);
+		 }
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			cn.close();
+		}
+		return r;
+	}
+	@Override
+	public ArrayList<Prestamo> listaPrestamos(String filtro) {
+		cn = new Conexion();
+		cn.Open();
+		ArrayList<Prestamo> list = new ArrayList<Prestamo>();
+		String condicion="";
+		if(!filtro.equals("")) {
+			condicion="Where IdUsuario="+filtro;
+		}
+		try
+		 {
+			 ResultSet rs= cn.query("Select * From prestamos "+condicion);
+			 while(rs.next())
+			 {
+				 Prestamo p = new Prestamo();
+				 
+				 p.setIdPrestamo(rs.getInt("prestamos.IdPrestamos"));
+				 p.setIdUsuario(rs.getInt("prestamos.IdUsuario"));
+				 p.setIdCuenta(rs.getInt("prestamos.IdCuenta"));
+				 p.setMontoSolicitado(rs.getFloat("prestamos.MontoSolicitado"));
+				 p.setMontoFinal(rs.getFloat("prestamos.MontoTotalPagar"));
+				 p.setCantCuotas(rs.getInt("prestamos.CuotasTotales"));
+				 p.setRestCuotas(rs.getInt("prestamos.CuotasRestantes"));
+				 p.setMontoCuotas(rs.getFloat("prestamos.ValorCuotas"));
+				 p.setFecha(rs.getString("prestamos.FechaInicio"));
+				 p.setEstado(rs.getInt("prestamos.Estado"));
+				 list.add(p);
+			 }
+			 
+		 }
+		 catch(Exception e)
+		 {
+			 e.printStackTrace();
+		 }
+		 finally
+		 {
+			 cn.close();
+		 }
+		 return list;
 	}
 
 	

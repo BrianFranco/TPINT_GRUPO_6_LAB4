@@ -1,10 +1,13 @@
 package entidad;
 
 public class Prestamo {
-	
+	private int idPrestamo;
 	private int idCuenta;
 	private int idUsuario;
 	private float montoSolicitado;
+	
+
+
 	private float montoFinal;
 	private int cantCuotas;
 	private int restCuotas;
@@ -71,6 +74,14 @@ public class Prestamo {
 		this.montoFinal = montoFinal;
 	}
 
+	
+	public int getIdPrestamo() {
+		return idPrestamo;
+	}
+
+	public void setIdPrestamo(int idPrestamo) {
+		this.idPrestamo = idPrestamo;
+	}
 	public int getCantCuotas() {
 		return cantCuotas;
 	}

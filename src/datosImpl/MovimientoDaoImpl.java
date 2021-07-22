@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import datos.MovimientoDao;
 import entidad.Movimiento;
+import entidad.Movimientos;
 import entidad.TipoCuenta;
 import entidad.TipoMovimiento;
 import entidad.Cuenta;
@@ -15,7 +16,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 	
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user = "root";
-	private String pass = "ROOT";
+	private String pass = "root";
 	private String dbName = "bdbanco";
 	private Conexion cn;
 
@@ -227,6 +228,29 @@ public class MovimientoDaoImpl implements MovimientoDao {
 
 		 }
 		 return list;
+	}
+	
+		public boolean generarMovimiento(Movimientos mov) {
+		
+		boolean estado=true;
+
+		cn = new Conexion();
+		cn.Open();	
+
+		String query = "INSERT INTO movimientos (IdCuenta,Descripcion,IdTipoMovimiento,Saldo,F_Movimiento) VALUES ('"+mov.getIdCuenta()+"','"+mov.getDescripcion()+"','"+mov.getIdTipoMovimiento()+"','"+mov.getSaldo()+"','"+mov.getFecha()+"')";
+		try
+		 {
+			estado=cn.execute(query);
+		 }
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			cn.close();
+		}
+		return estado;
 	}
 	
 	

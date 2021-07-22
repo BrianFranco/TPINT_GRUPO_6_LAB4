@@ -28,5 +28,15 @@ public class PrestamosNegImpl implements PrestamosNeg {
 	public boolean insertarP(PrestamoP PrestamoP) {
 		return prestDao.insertarP(PrestamoP);
 	}
+	@Override
+	public boolean autorizarPrestamo(String idPrestamo,String fecha, int estado) {
+		
+		return prestDao.autorizarPrestamo(idPrestamo,fecha,estado);
+	}
 	
+	@Override
+	public ArrayList<Prestamo> listaPrestamos(String filtro) {
+		// TODO Auto-generated method stub
+		return (ArrayList<Prestamo>) prestDao.listaPrestamos(filtro);
+	}
 }

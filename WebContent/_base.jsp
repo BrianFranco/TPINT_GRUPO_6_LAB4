@@ -12,13 +12,17 @@
 <jsp:include page="/Css/Estilos_base.css"></jsp:include>
 
 <%
-	Usuario u = new Usuario();
-	if(session.getAttribute("Usuario") != null){
-		u = (Usuario) session.getAttribute("Usuario");
+Usuario u = new Usuario();
+if(session.getAttribute("Usuario") != null){
+	u = (Usuario) session.getAttribute("Usuario");
+	if(u.getIdRol()==2){
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/ABMLClientes.jsp");
+		dispatcher.forward(request, response);
 	}
-	HttpSession s=request.getSession();
-	int id= u.getIdUsuario();
-	s.setAttribute("Id",id);
+}else{
+	RequestDispatcher dispatcher = request.getRequestDispatcher("/IniciarSesion.jsp");
+	dispatcher.forward(request, response);
+}
 %>
 
 </head>

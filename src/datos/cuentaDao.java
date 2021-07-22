@@ -2,6 +2,7 @@ package datos;
 
 import java.util.ArrayList;
 import entidad.Cuenta;
+import entidad.Movimientos;
 import entidad.Prestamo;
 
 public interface cuentaDao {
@@ -17,5 +18,5 @@ public interface cuentaDao {
 	public boolean insertar(Cuenta cuenta);
 	public boolean editar(Cuenta cuenta);
 	public boolean borrar(int id);
-	
+	public boolean sumarSaldo(Movimientos mov);
 }

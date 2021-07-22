@@ -10,12 +10,13 @@ import datos.cuentaDao;
 import entidad.Cuenta;
 import entidad.Prestamo;
 import entidad.TipoCuenta;
+import entidad.Movimientos;
 
 public class cuentaDaoImpl implements cuentaDao{
 	
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user = "root";
-	private String pass = "ROOT";
+	private String pass = "root";
 	private String dbName = "bdbanco";
 	
 	private Conexion cn;
@@ -433,7 +434,26 @@ public class cuentaDaoImpl implements cuentaDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+	@Override
+	public boolean sumarSaldo(Movimientos mov) {
+		boolean estado=true;
+		cn = new Conexion();
+		cn.Open();		 
+		String query = "UPDATE cuentas SET Saldo=Saldo+"+mov.getSaldo()+" WHERE N_Cuenta="+mov.getIdCuenta();
+		try
+		 {
+			estado=cn.execute(query);
+		 }
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			cn.close();
+		}
+		return estado;
+	}
 
 	
 }

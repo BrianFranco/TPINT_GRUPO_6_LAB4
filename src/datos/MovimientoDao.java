@@ -1,7 +1,7 @@
 package datos;
 
 import java.util.ArrayList;
-
+import entidad.Movimientos;
 import entidad.Movimiento;
 
 public interface MovimientoDao {
@@ -12,5 +12,9 @@ public interface MovimientoDao {
 	public boolean insertar(Movimiento movimiento);
 	public boolean editar(Movimiento movimiento);
 	public boolean borrar(int id);
+	
+	
+	public boolean generarMovimiento(Movimientos mov);
+	
 	//public ArrayList<Movimiento> listarMovimientos(int id);
 }

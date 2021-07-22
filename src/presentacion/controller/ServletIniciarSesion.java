@@ -54,7 +54,7 @@ public class ServletIniciarSesion extends HttpServlet {
 				if(usuarioBuscado != null) {
 					request.getSession().setAttribute("Usuario",usuarioBuscado );
 					if(usuarioBuscado.getIdRol() == 1) {
-						redireccion = "/Cuentas.jsp";
+						redireccion = "/DatosPersonales.jsp";
 					}else {
 						redireccion = "/ABMLClientes.jsp";
 					}
